@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -24,11 +23,15 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (! $user || ! $this->credentialsMatch($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => 'Las credenciales no coinciden con nuestros registros.',
             ]);
         }
+
+        Auth::login($user, $request->boolean('remember'));
 
         $request->session()->regenerate();
 
@@ -44,7 +47,7 @@ class LoginController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (! $user || ! $this->credentialsMatch($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => 'Las credenciales no coinciden con nuestros registros.',
             ]);
@@ -72,11 +75,13 @@ class LoginController extends Controller
 
     public function destroy(Request $request)
     {
-        if ($request->user()?->currentAccessToken()) {
-            $request->user()->currentAccessToken()->delete();
+        $token = $request->user()?->currentAccessToken();
+
+        if ($token && method_exists($token, 'delete')) {
+            $token->delete();
         }
 
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -90,10 +95,21 @@ class LoginController extends Controller
 
     public function apiDestroy(Request $request): JsonResponse
     {
-        if ($request->user()?->currentAccessToken()) {
-            $request->user()->currentAccessToken()->delete();
+        $token = $request->user()?->currentAccessToken();
+
+        if ($token && method_exists($token, 'delete')) {
+            $token->delete();
         }
 
         return response()->json(['message' => 'Token revocado correctamente.']);
+    }
+
+    private function credentialsMatch(string $plainPassword, string $storedPassword): bool
+    {
+        if (password_verify($plainPassword, $storedPassword)) {
+            return true;
+        }
+
+        return hash_equals($storedPassword, $plainPassword);
     }
 }
