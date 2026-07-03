@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\VehiculosController;
+use App\Http\Controllers\InventariosController;
+use App\Http\Controllers\ComprasController;
+use App\Http\Controllers\ServiciosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,4 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
     Route::resource('pagos', PagosController::class)->parameters(['pagos' => 'pago']);
+    Route::resource('vehiculos', VehiculosController::class)->parameters(['vehiculos' => 'vehiculo']);
+    Route::resource('inventarios', InventariosController::class)->parameters(['inventarios' => 'inventario']);
+    Route::resource('compras', ComprasController::class)->parameters(['compras' => 'compra']);
+    Route::resource('servicios', ServiciosController::class)->parameters(['servicios' => 'servicio']);
 });
