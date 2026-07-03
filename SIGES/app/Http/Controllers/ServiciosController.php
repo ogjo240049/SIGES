@@ -3,63 +3,74 @@
 namespace App\Http\Controllers;
 
 use App\Models\servicios;
+use App\Models\choferes;
 use Illuminate\Http\Request;
 
 class ServiciosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $servicios = servicios::with('chofer.usuario', 'chofer.vehiculo')->latest()->get();
+
+        return view('servicios.index', compact('servicios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')->orderBy('id_chofer')->get();
+
+        return view('servicios.create', compact('choferes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'origen_viaje' => ['required', 'string', 'max:255'],
+            'destino_viaje' => ['required', 'string', 'max:255'],
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_pedido' => ['required', 'date'],
+        ]);
+
+        servicios::create($data);
+
+        return redirect()->route('servicios.index')
+            ->with('success', 'Servicio registrado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(servicios $servicios)
+    public function show(servicios $servicio)
     {
-        //
+        $servicio->load('chofer.usuario', 'chofer.vehiculo');
+
+        return view('servicios.show', compact('servicio'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(servicios $servicios)
+    public function edit(servicios $servicio)
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')->orderBy('id_chofer')->get();
+
+        return view('servicios.edit', compact('servicio', 'choferes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, servicios $servicios)
+    public function update(Request $request, servicios $servicio)
     {
-        //
+        $data = $request->validate([
+            'origen_viaje' => ['required', 'string', 'max:255'],
+            'destino_viaje' => ['required', 'string', 'max:255'],
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_pedido' => ['required', 'date'],
+        ]);
+
+        $servicio->update($data);
+
+        return redirect()->route('servicios.index')
+            ->with('success', 'Servicio actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(servicios $servicios)
+    public function destroy(servicios $servicio)
     {
-        //
+        $servicio->delete();
+
+        return redirect()->route('servicios.index')
+            ->with('success', 'Servicio eliminado.');
     }
 }
