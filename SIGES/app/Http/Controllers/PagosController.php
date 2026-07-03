@@ -2,64 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\choferes;
 use App\Models\pagos;
 use Illuminate\Http\Request;
 
 class PagosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pagos = pagos::with('chofer.usuario', 'chofer.vehiculo')
+            ->latest()
+            ->get();
+
+        return view('pagos.index', compact('pagos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')
+            ->orderBy('id_chofer')
+            ->get();
+
+        return view('pagos.create', compact('choferes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_pago' => ['required', 'date'],
+            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
+        ]);
+
+        pagos::create($data);
+
+        return redirect()->route('pagos.index')
+            ->with('success', 'Pago registrado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(pagos $pagos)
+    public function show(pagos $pago)
     {
-        //
+        $pago->load('chofer.usuario', 'chofer.vehiculo');
+
+        return view('pagos.show', compact('pago'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(pagos $pagos)
+    public function edit(pagos $pago)
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')
+            ->orderBy('id_chofer')
+            ->get();
+
+        return view('pagos.edit', compact('pago', 'choferes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, pagos $pagos)
+    public function update(Request $request, pagos $pago)
     {
-        //
+        $data = $request->validate([
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_pago' => ['required', 'date'],
+            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
+        ]);
+
+        $pago->update($data);
+
+        return redirect()->route('pagos.index')
+            ->with('success', 'Pago actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(pagos $pagos)
+    public function destroy(pagos $pago)
     {
-        //
+        $pago->delete();
+
+        return redirect()->route('pagos.index')
+            ->with('success', 'Registro de pago eliminado.');
     }
 }

@@ -1,49 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel SIGES</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700|space-grotesk:500,700" rel="stylesheet" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+@extends('layouts.app')
 
-</head>
-<body>
-    <div class="shell">
-        <header class="topbar">
-            <div class="brand">
-                <span class="brand-mark"></span>
-                <span>SIGES</span>
-            </div>
+@section('title', 'Dashboard - SIGES')
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="logout">Cerrar sesión</button>
-            </form>
-        </header>
-
-        <section class="hero">
+@section('content')
+    <section class="hero">
+        <div>
+            <p class="eyebrow">Bienvenido</p>
             <h1>Bienvenido, {{ $user?->name }}.</h1>
-            <p>
-            </p>
-        </section>
+            <p class="hero-copy">Controla pagos, choferes y actividad desde un panel minimalista con dise�o premium.</p>
+        </div>
+    </section>
 
-        <section class="grid">
-            <article class="grid-card">
-                <h2>Perfil de acceso</h2>
-                <p>{{ $user?->email }}</p>
-                
-            </article>
+    <section class="grid">
 
-            <article class="grid-card">
-               
-            </article>
+        <article class="grid-card">
+            <h2>Perfil de acceso</h2>
+            <p>{{ $user?->email }}</p>
+        </article>
 
-            <article class="grid-card">
-                
-            </article>
-        </section>
+        <article class="grid-card">
+    <h2>Gestion de pagos</h2>
+    <p>Manten actualizados los pagos realizados por los choferes y accede rapidamente al modulo con un solo clic.</p>
+    
+    <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+        <a href="{{ route('pagos.index') }}" class="button-secondary w-auto inline-flex items-center justify-center px-4 py-2 text-sm">
+            Abrir pagos
+        </a>
     </div>
-</body>
-</html>
+</article>
+
+    </section>
+@endsection
