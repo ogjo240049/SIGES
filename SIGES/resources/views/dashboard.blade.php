@@ -18,6 +18,38 @@
             <p>{{ $user?->email }}</p>
         </article>
 
+        <article class="grid-card">
+            <h2>Reportes financieros</h2>
+            <p>Consulta pagos por chofer, por unidad, por fechas y el resumen semanal de ingresos registrados.</p>
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+                <a href="{{ route('reportes.index') }}" class="button-secondary w-auto inline-flex items-center justify-center px-4 py-2 text-sm">
+                    Abrir reportes
+                </a>
+            </div>
+        </article>
+
+        <article class="grid-card">
+            <h2>Gestión de choferes</h2>
+            <p>Da de alta choferes, enlaza su usuario y asigna una unidad disponible cuando corresponda.</p>
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+                <a href="{{ route('choferes.index') }}" class="button-secondary w-auto inline-flex items-center justify-center px-4 py-2 text-sm">
+                    Abrir choferes
+                </a>
+            </div>
+        </article>
+
+        <article class="grid-card">
+            <h2>Bitácora de choferes</h2>
+            <p>Registra ubicaciones y horarios para llevar un control puntual de la actividad de cada chofer.</p>
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+                <a href="{{ route('bitacoras.index') }}" class="button-secondary w-auto inline-flex items-center justify-center px-4 py-2 text-sm">
+                    Abrir bitácora
+                </a>
+            </div>
+        </article>
+
+        
+
         
         <article class="grid-card">
             <h2>Gestión de usuarios</h2>
