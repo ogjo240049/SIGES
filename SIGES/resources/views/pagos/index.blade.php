@@ -9,7 +9,9 @@
         </svg>
         Volver al dashboard
     </a>
-    <a href="{{ route('pagos.create') }}" class="button-secondary">Nuevo pago</a>
+    @unless(auth()->user()?->isDriver())
+        <a href="{{ route('pagos.create') }}" class="button-secondary">Nuevo pago</a>
+    @endunless
 @endsection
 
 @section('content')
@@ -35,7 +37,9 @@
                         <th>Chofer</th>
                         <th>Vehículo</th>
                         <th>Monto</th>
-                        <th>Acciones</th>
+                        @unless(auth()->user()?->isDriver())
+                            <th>Acciones</th>
+                        @endunless
                     </tr>
                 </thead>
                 <tbody>
@@ -45,17 +49,19 @@
                             <td>{{ $pago->chofer->usuario?->name ?? 'Chofer no disponible' }}</td>
                             <td>{{ $pago->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
                             <td><span class="payment-tag">${{ number_format($pago->monto_pago, 2, ',', '.') }}</span></td>
-                            <td>
-                                <div class="actions">
-                                    <a href="{{ route('pagos.show', $pago) }}" class="button-ghost">Ver</a>
-                                    <a href="{{ route('pagos.edit', $pago) }}" class="button-secondary">Editar</a>
-                                    <form action="{{ route('pagos.destroy', $pago) }}" method="POST" onsubmit="return confirm('¿Eliminar este pago?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
-                                    </form>
-                                </div>
-                            </td>
+                            @unless(auth()->user()?->isDriver())
+                                <td>
+                                    <div class="actions">
+                                        <a href="{{ route('pagos.show', $pago) }}" class="button-ghost">Ver</a>
+                                        <a href="{{ route('pagos.edit', $pago) }}" class="button-secondary">Editar</a>
+                                        <form action="{{ route('pagos.destroy', $pago) }}" method="POST" onsubmit="return confirm('¿Eliminar este pago?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="button-ghost">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            @endunless
                         </tr>
                     @endforeach
                 </tbody>

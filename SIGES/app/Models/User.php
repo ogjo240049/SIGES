@@ -68,4 +68,29 @@ class User extends Authenticatable
             default => 'Usuario',
         };
     }
+
+    public function isAdmin(): bool
+    {
+        return (int) $this->rol === 1;
+    }
+
+    public function isOperator(): bool
+    {
+        return (int) $this->rol === 2;
+    }
+
+    public function isDriver(): bool
+    {
+        return (int) $this->rol === 3;
+    }
+
+    public function canManageOperations(): bool
+    {
+        return $this->isAdmin() || $this->isOperator();
+    }
+
+    public function canManageSystem(): bool
+    {
+        return $this->isAdmin();
+    }
 }

@@ -9,7 +9,9 @@
         </svg>
         Volver a pagos
     </a>
-    <a href="{{ route('pagos.edit', $pago) }}" class="button-secondary">Editar pago</a>
+    @unless(auth()->user()?->isDriver())
+        <a href="{{ route('pagos.edit', $pago) }}" class="button-secondary">Editar pago</a>
+    @endunless
 @endsection
 
 @section('content')
