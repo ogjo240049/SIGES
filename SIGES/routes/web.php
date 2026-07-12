@@ -6,6 +6,7 @@ use App\Http\Controllers\VehiculosController;
 use App\Http\Controllers\InventariosController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,4 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('inventarios', InventariosController::class)->parameters(['inventarios' => 'inventario']);
     Route::resource('compras', ComprasController::class)->parameters(['compras' => 'compra']);
     Route::resource('servicios', ServiciosController::class)->parameters(['servicios' => 'servicio']);
+    Route::resource('usuarios', UsuariosController::class)->parameters(['usuarios' => 'user']);
 });

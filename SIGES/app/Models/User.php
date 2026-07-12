@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(choferes::class, 'id_usuario', 'id');
     }
+
+    public function getRolLabelAttribute(): string
+    {
+        return match ((int) $this->rol) {
+            1 => 'Administrador',
+            2 => 'Operador',
+            3 => 'Chofer',
+            default => 'Usuario',
+        };
+    }
 }
