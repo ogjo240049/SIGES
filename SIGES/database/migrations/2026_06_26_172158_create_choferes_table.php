@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('choferes', function (Blueprint $table) {
             $table->id('id_chofer');
             $table->foreignId('id_usuario')->constrained('users');
-            $table->unsignedBigInteger('unidad_asignada');
+            $table->unsignedBigInteger('unidad_asignada')->nullable();
             $table->string('identificacion');
             $table->timestamps();
         });

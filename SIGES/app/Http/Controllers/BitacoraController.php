@@ -2,64 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\choferes;
 use App\Models\bitacora;
 use Illuminate\Http\Request;
 
 class BitacoraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $bitacoras = bitacora::with('chofer.usuario', 'chofer.vehiculo')
+            ->latest('fecha_hora')
+            ->get();
+
+        return view('bitacoras.index', compact('bitacoras'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')
+            ->orderBy('id_chofer')
+            ->get();
+
+        return view('bitacoras.create', compact('choferes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_hora' => ['required', 'date'],
+            'locacion' => ['required', 'string', 'max:255'],
+        ]);
+
+        bitacora::create($data);
+
+        return redirect()->route('bitacoras.index')
+            ->with('success', 'Registro de bitácora creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(bitacora $bitacora)
     {
-        //
+        $bitacora->load('chofer.usuario', 'chofer.vehiculo');
+
+        return view('bitacoras.show', compact('bitacora'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(bitacora $bitacora)
     {
-        //
+        $choferes = choferes::with('usuario', 'vehiculo')
+            ->orderBy('id_chofer')
+            ->get();
+
+        return view('bitacoras.edit', compact('bitacora', 'choferes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, bitacora $bitacora)
     {
-        //
+        $data = $request->validate([
+            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
+            'fecha_hora' => ['required', 'date'],
+            'locacion' => ['required', 'string', 'max:255'],
+        ]);
+
+        $bitacora->update($data);
+
+        return redirect()->route('bitacoras.index')
+            ->with('success', 'Registro de bitácora actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(bitacora $bitacora)
     {
-        //
+        $bitacora->delete();
+
+        return redirect()->route('bitacoras.index')
+            ->with('success', 'Registro de bitácora eliminado correctamente.');
     }
 }

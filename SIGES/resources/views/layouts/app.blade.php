@@ -35,6 +35,12 @@
             <div class="flash-message">{{ session('success') }}</div>
         @endif
 
+        @if(session('error'))
+            <div class="flash-message" style="border-color: rgba(239, 68, 68, 0.22); background: rgba(239, 68, 68, 0.12); color: #FFE8E8;">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
 </body>
