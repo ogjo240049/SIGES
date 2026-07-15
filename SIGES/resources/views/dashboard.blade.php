@@ -24,11 +24,10 @@
                 <p>Consulta pagos por chofer, por unidad, por fechas y el resumen semanal de ingresos registrados.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('reportes.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
-                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                       onmouseout="this.style.backgroundColor='#2563EB'">
-                        Abrir reportes
+                    style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                    onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                    onmouseout="this.style.backgroundColor='#2563EB'">
+                    Abrir reportes
                     </a>
                 </div>
             </article>
@@ -40,11 +39,10 @@
                 <p>Da de alta choferes, enlaza su usuario y asigna una unidad disponible cuando corresponda.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('choferes.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
-                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                       onmouseout="this.style.backgroundColor='#2563EB'">
-                        Abrir choferes
+                    style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                    onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                    onmouseout="this.style.backgroundColor='#2563EB'">
+                    Abrir choferes
                     </a>
                 </div>
             </article>
@@ -54,11 +52,10 @@
                 <p>Registra ubicaciones y horarios para llevar un control puntual de la actividad de cada chofer.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('bitacoras.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
-                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                       onmouseout="this.style.backgroundColor='#2563EB'">
-                        Abrir bitácora
+                    style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                    onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                    onmouseout="this.style.backgroundColor='#2563EB'">
+                    Abrir bitácora
                     </a>
                 </div>
             </article>
@@ -68,11 +65,10 @@
                 <p>Registra viajes particulares indicando origen, destino, chofer y vehículo.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('servicios.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
-                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                       onmouseout="this.style.backgroundColor='#2563EB'">
-                        Abrir servicios
+                    style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                    onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                    onmouseout="this.style.backgroundColor='#2563EB'">
+                    Abrir servicios
                     </a>
                 </div>
             </article>
@@ -83,10 +79,9 @@
             <p>Manten actualizados los pagos realizados por los choferes y accede rapidamente al módulo con un solo clic.</p>
             <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                 <a href="{{ route('pagos.index') }}" 
-                   style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                   class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
-                   onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                   onmouseout="this.style.backgroundColor='#2563EB'">
+                    style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                    onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                    onmouseout="this.style.backgroundColor='#2563EB'">
                     Abrir pagos
                 </a>
             </div>
@@ -98,8 +93,7 @@
                 <p>Administra cuentas, roles y credenciales de acceso del sistema desde un solo lugar.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('usuarios.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
+                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
                        onmouseover="this.style.backgroundColor='#1d4ed8'" 
                        onmouseout="this.style.backgroundColor='#2563EB'">
                         Abrir usuarios
@@ -112,8 +106,7 @@
                 <p>Registra, edita y administra las unidades de taxi, con placa, modelo, motor, serie, concesionario y chofer asignado.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('vehiculos.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
+                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
                        onmouseover="this.style.backgroundColor='#1d4ed8'" 
                        onmouseout="this.style.backgroundColor='#2563EB'">
                         Abrir gestión de taxis
@@ -126,8 +119,7 @@
                 <p>Controla las existencias de piezas: nombre, tipo y cantidad disponible.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('inventarios.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
+                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
                        onmouseover="this.style.backgroundColor='#1d4ed8'" 
                        onmouseout="this.style.backgroundColor='#2563EB'">
                         Abrir inventario
@@ -140,8 +132,7 @@
                 <p>Registra las adquisiciones de piezas y mantén actualizado el inventario automáticamente.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('compras.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s ease; border: none; text-decoration: none;"
-                       class="w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm hover:bg-[#1d4ed8]"
+                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
                        onmouseover="this.style.backgroundColor='#1d4ed8'" 
                        onmouseout="this.style.backgroundColor='#2563EB'">
                         Abrir compras
