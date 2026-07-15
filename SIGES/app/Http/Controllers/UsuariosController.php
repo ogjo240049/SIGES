@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
@@ -97,7 +98,18 @@ class UsuariosController extends Controller
                 ->with('error', 'No puedes eliminar tu propia cuenta.');
         }
 
-        $user->delete();
+        DB::transaction(function () use ($user): void {
+            $user->load('choferes');
+
+            foreach ($user->choferes as $chofer) {
+                $chofer->pagos()->delete();
+                $chofer->servicios()->delete();
+                $chofer->bitacoras()->delete();
+                $chofer->delete();
+            }
+
+            $user->delete();
+        });
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuario eliminado correctamente.');

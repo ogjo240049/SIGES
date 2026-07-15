@@ -96,8 +96,10 @@ class ComprasController extends Controller
     public function destroy(compras $compra)
     {
         // Restar cantidad del inventario
-        inventario::where('id_inventario', $compra->id_inventario)
-            ->decrement('cantidad', $compra->cantidad_compra);
+        if ($compra->id_inventario !== null) {
+            inventario::where('id_inventario', $compra->id_inventario)
+                ->decrement('cantidad', $compra->cantidad_compra);
+        }
 
         $compra->delete();
 

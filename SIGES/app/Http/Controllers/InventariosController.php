@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\inventario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InventariosController extends Controller
 {
@@ -59,7 +60,10 @@ class InventariosController extends Controller
 
     public function destroy(inventario $inventario)
     {
-        $inventario->delete();
+        DB::transaction(function () use ($inventario): void {
+            $inventario->compras()->update(['id_inventario' => null]);
+            $inventario->delete();
+        });
 
         return redirect()->route('inventarios.index')
             ->with('success', 'Registro eliminado del inventario.');

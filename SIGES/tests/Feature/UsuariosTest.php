@@ -2,6 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\bitacora;
+use App\Models\choferes;
+use App\Models\pagos;
+use App\Models\servicios;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -82,6 +86,60 @@ class UsuariosTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => 'self@siges.test',
+        ]);
+    }
+
+    public function test_admin_can_delete_user_with_chofer_dependencies(): void
+    {
+        $admin = User::factory()->create([
+            'rol' => 1,
+            'password' => 'password',
+        ]);
+
+        $driverUser = User::factory()->create([
+            'rol' => 3,
+            'password' => 'password',
+        ]);
+
+        $chofer = choferes::factory()->create([
+            'id_usuario' => $driverUser->id,
+        ]);
+
+        $pago = pagos::factory()->create([
+            'id_chofer' => $chofer->id_chofer,
+        ]);
+
+        $servicio = servicios::factory()->create([
+            'id_chofer' => $chofer->id_chofer,
+        ]);
+
+        $bitacora = bitacora::factory()->create([
+            'id_chofer' => $chofer->id_chofer,
+        ]);
+
+        $this->actingAs($admin)
+            ->delete(route('usuarios.destroy', $driverUser))
+            ->assertRedirect(route('usuarios.index'))
+            ->assertSessionHas('success', 'Usuario eliminado correctamente.');
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $driverUser->id,
+        ]);
+
+        $this->assertDatabaseMissing('choferes', [
+            'id_chofer' => $chofer->id_chofer,
+        ]);
+
+        $this->assertDatabaseMissing('pagos', [
+            'id_pago' => $pago->id_pago,
+        ]);
+
+        $this->assertDatabaseMissing('servicios', [
+            'id_servicio' => $servicio->id_servicio,
+        ]);
+
+        $this->assertDatabaseMissing('bitacoras', [
+            'id_bitacora' => $bitacora->id_bitacora,
         ]);
     }
 }
