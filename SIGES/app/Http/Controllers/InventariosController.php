@@ -60,8 +60,8 @@ class InventariosController extends Controller
 
     public function destroy(inventario $inventario)
     {
-        DB::transaction(function () use ($inventario): void {
-            $inventario->compras()->update(['id_inventario' => null]);
+         DB::transaction(function () use ($inventario): void {
+            $inventario->compras()->delete();
             $inventario->delete();
         });
 
