@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\choferes;
+use App\Models\compras;
+use App\Models\inventario;
 use App\Models\pagos;
 use App\Models\vehiculos;
 use Carbon\Carbon;
@@ -26,6 +28,7 @@ class ReportesController extends Controller
         $reporteUnidad = null;
         $reporteRango = null;
         $reporteSemanal = null;
+        $reporteInventarioCompras = null;
 
         if ($reporteTipo === 'chofer' && $request->filled('id_chofer')) {
             $request->validate([
@@ -113,6 +116,27 @@ class ReportesController extends Controller
                 ->values();
         }
 
+        if ($reporteTipo === 'inventario_compras') {
+            $inventariosConCompras = inventario::with(['compras' => function ($query) {
+                $query->orderByDesc('fecha');
+            }])
+                ->orderBy('nombre_pieza')
+                ->get();
+
+            $historialCompras = compras::with('inventario')
+                ->orderByDesc('fecha')
+                ->get();
+
+            $reporteInventarioCompras = [
+                'inventarios' => $inventariosConCompras,
+                'compras' => $historialCompras,
+                'total_piezas' => $inventariosConCompras->count(),
+                'existencias_totales' => $inventariosConCompras->sum('cantidad'),
+                'total_compras' => $historialCompras->count(),
+                'costo_total_compras' => $historialCompras->sum(fn ($compra) => (float) $compra->precio_unitario * (int) $compra->cantidad_compra),
+            ];
+        }
+
         return compact(
             'choferes',
             'vehiculos',
@@ -120,7 +144,8 @@ class ReportesController extends Controller
             'reporteChofer',
             'reporteUnidad',
             'reporteRango',
-            'reporteSemanal'
+            'reporteSemanal',
+            'reporteInventarioCompras'
         );
     }
 
@@ -131,6 +156,7 @@ class ReportesController extends Controller
             'unidad' => 'Reporte de pagos por unidad de taxi',
             'fechas' => 'Reporte de pagos por rango de fechas',
             'semanal' => 'Reporte semanal del total de ingresos registrados',
+            'inventario_compras' => 'Reporte de inventario y compras',
             default => 'Reportes de pagos e ingresos',
         };
     }
