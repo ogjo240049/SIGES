@@ -24,7 +24,7 @@
             <p>Accede con tu correo y contraseña para continuar al tablero principal.</p>
 
             @if ($errors->any())
-                <div class="alert">
+                <div class="alert" role="alert">
                     {{ $errors->first() }}
                 </div>
             @endif

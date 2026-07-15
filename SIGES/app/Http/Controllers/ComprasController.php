@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompraRequest;
 use App\Models\compras;
 use App\Models\inventario;
-use Illuminate\Http\Request;
 
 class ComprasController extends Controller
 {
@@ -22,15 +22,9 @@ class ComprasController extends Controller
         return view('compras.create', compact('inventarios'));
     }
 
-    public function store(Request $request)
+    public function store(CompraRequest $request)
     {
-        $data = $request->validate([
-            'id_inventario' => ['required', 'integer', 'exists:inventarios,id_inventario'],
-            'precio_unitario' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-            'cantidad_compra' => ['required', 'integer', 'min:1'],
-            'fecha' => ['required', 'date'],
-            'lugar_compra' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         $compra = compras::create($data);
 
@@ -56,15 +50,9 @@ class ComprasController extends Controller
         return view('compras.edit', compact('compra', 'inventarios'));
     }
 
-    public function update(Request $request, compras $compra)
+    public function update(CompraRequest $request, compras $compra)
     {
-        $data = $request->validate([
-            'id_inventario' => ['required', 'integer', 'exists:inventarios,id_inventario'],
-            'precio_unitario' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-            'cantidad_compra' => ['required', 'integer', 'min:1'],
-            'fecha' => ['required', 'date'],
-            'lugar_compra' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         // Ajustar stock: si cambió inventario o cantidad
         if ($compra->id_inventario != $data['id_inventario']) {

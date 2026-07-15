@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChoferesRequest;
 use App\Models\User;
 use App\Models\vehiculos;
 use App\Models\choferes;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ChoferesController extends Controller
 {
@@ -42,13 +41,11 @@ class ChoferesController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ChoferesRequest $request)
     {
-        $data = $request->validate([
-            'id_usuario' => ['required', 'integer', 'exists:users,id'],
-            'unidad_asignada' => ['nullable', 'integer', 'exists:vehiculos,matricula'],
-            'identificacion' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
+
+        $data['unidad_asignada'] = $request->filled('unidad_asignada') ? $request->integer('unidad_asignada') : null;
 
         $chofer = choferes::create($data);
 
@@ -82,15 +79,12 @@ class ChoferesController extends Controller
         ]);
     }
 
-    public function update(Request $request, choferes $chofer)
+    public function update(ChoferesRequest $request, choferes $chofer)
     {
-        $data = $request->validate([
-            'id_usuario' => ['required', 'integer', 'exists:users,id'],
-            'unidad_asignada' => ['nullable', 'integer', 'exists:vehiculos,matricula'],
-            'identificacion' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         $previousVehicle = $chofer->unidad_asignada;
+        $data['unidad_asignada'] = $request->filled('unidad_asignada') ? $request->integer('unidad_asignada') : null;
         $chofer->update($data);
 
         if ($request->filled('unidad_asignada')) {

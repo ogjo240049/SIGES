@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PagoRequest;
 use App\Models\choferes;
 use App\Models\pagos;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,15 +70,11 @@ class PagosController extends Controller
         return view('pagos.create', compact('choferes'));
     }
 
-    public function store(Request $request)
+    public function store(PagoRequest $request)
     {
         $this->ensureCanManagePayments();
 
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pago' => ['required', 'date'],
-            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-        ]);
+        $data = $request->validated();
 
         pagos::create($data);
 
@@ -106,15 +101,11 @@ class PagosController extends Controller
         return view('pagos.edit', compact('pago', 'choferes'));
     }
 
-    public function update(Request $request, pagos $pago)
+    public function update(PagoRequest $request, pagos $pago)
     {
         $this->ensureCanManagePayments();
 
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pago' => ['required', 'date'],
-            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-        ]);
+        $data = $request->validated();
 
         $pago->update($data);
 

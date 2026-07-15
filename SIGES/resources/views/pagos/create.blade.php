@@ -87,7 +87,7 @@
                     </label>
                     <div class="input-prefix-group">
                         <span class="input-prefix">$</span>
-                        <input type="number" name="monto_pago" min="0" step="0.01" value="{{ old('monto_pago') }}" placeholder="0.00" required>
+                        <input type="number" name="monto_pago" min="0.01" step="0.01" value="{{ old('monto_pago') }}" placeholder="0.00" required>
                     </div>
                     @error('monto_pago')
                         <div class="field-error">{{ $message }}</div>

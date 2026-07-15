@@ -56,7 +56,7 @@
                     <label class="field-label">Precio unitario</label>
                     <div class="input-prefix-group">
                         <span class="input-prefix">$</span>
-                        <input type="number" name="precio_unitario" step="0.01" min="0" value="{{ old('precio_unitario') }}" required>
+                        <input type="number" name="precio_unitario" step="0.01" min="0.01" value="{{ old('precio_unitario') }}" required>
                     </div>
                     @error('precio_unitario')<div class="field-error">{{ $message }}</div>@enderror
                 </div>

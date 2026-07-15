@@ -36,6 +36,17 @@
 
         <div class="panel-separator"></div>
 
+        @if($errors->any())
+            <div class="flash-message" role="alert" style="margin-bottom: 20px;">
+                <strong>Revisa los campos marcados:</strong>
+                <ul style="margin: 8px 0 0 16px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('choferes.update', $chofer) }}">
             @csrf
             @method('PUT')

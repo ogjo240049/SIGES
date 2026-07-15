@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -26,16 +27,21 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (! $user || ! $this->credentialsMatch($credentials['password'], $user->password)) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Credenciales incorrectas.'], Response::HTTP_UNAUTHORIZED);
+            }
+
             throw ValidationException::withMessages([
-                'email' => 'Las credenciales no coinciden con nuestros registros.',
+                'email' => 'Credenciales incorrectas',
             ]);
         }
 
         Auth::login($user, $request->boolean('remember'));
 
         $request->session()->regenerate();
+        $request->session()->put('login_at', now()->toDateTimeString());
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended($this->dashboardRedirect($user));
     }
 
     public function apiStore(Request $request): JsonResponse
@@ -68,9 +74,21 @@ class LoginController extends Controller
 
     public function dashboard(Request $request)
     {
-        return view('dashboard', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+
+        if (! $user) {
+            return redirect()->route('login');
+        }
+
+        if ($user->isAdmin()) {
+            return view('dashboard', ['user' => $user]);
+        }
+
+        if ($user->isOperator() || $user->isDriver()) {
+            return view('dashboard', ['user' => $user]);
+        }
+
+        return view('dashboard', ['user' => $user]);
     }
 
     public function destroy(Request $request)
@@ -111,5 +129,18 @@ class LoginController extends Controller
         }
 
         return hash_equals($storedPassword, $plainPassword);
+    }
+
+    private function dashboardRedirect(User $user): string
+    {
+        if ($user->isAdmin()) {
+            return route('dashboard');
+        }
+
+        if ($user->isOperator()) {
+            return route('dashboard');
+        }
+
+        return route('dashboard');
     }
 }

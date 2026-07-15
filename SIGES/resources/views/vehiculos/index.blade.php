@@ -50,11 +50,11 @@
                             <td>
                                 <div class="actions">
                                     <a href="{{ route('vehiculos.show', $vehiculo) }}" class="button-ghost">Ver</a>
-                                    <a href="{{ route('vehiculos.edit', $vehiculo) }}" class="button-secondary">Editar</a>
+                                    <a href="{{ route('vehiculos.edit', $vehiculo) }}" class="button-primary" style="padding: 10px 16px; width: auto; min-width: 92px; justify-content: center;">Editar</a>
                                     <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" onsubmit="return confirm('¿Eliminar este taxi?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>

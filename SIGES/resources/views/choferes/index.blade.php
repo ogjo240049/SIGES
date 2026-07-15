@@ -48,11 +48,11 @@
                             <td>
                                 <div class="actions">
                                     <a href="{{ route('choferes.show', $chofer) }}" class="button-ghost">Ver</a>
-                                    <a href="{{ route('choferes.edit', $chofer) }}" class="button-secondary">Editar</a>
+                                    <a href="{{ route('choferes.edit', $chofer) }}" class="button-primary" style="padding: 10px 16px; width: auto; min-width: 92px; justify-content: center;">Editar</a>
                                     <form action="{{ route('choferes.destroy', $chofer) }}" method="POST" onsubmit="return confirm('¿Eliminar este chofer?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>

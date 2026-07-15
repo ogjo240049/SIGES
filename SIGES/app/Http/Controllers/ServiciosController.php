@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ServicioRequest;
 use App\Models\servicios;
 use App\Models\choferes;
-use Illuminate\Http\Request;
 
 class ServiciosController extends Controller
 {
@@ -22,14 +22,9 @@ class ServiciosController extends Controller
         return view('servicios.create', compact('choferes'));
     }
 
-    public function store(Request $request)
+    public function store(ServicioRequest $request)
     {
-        $data = $request->validate([
-            'origen_viaje' => ['required', 'string', 'max:255'],
-            'destino_viaje' => ['required', 'string', 'max:255'],
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pedido' => ['required', 'date'],
-        ]);
+        $data = $request->validated();
 
         servicios::create($data);
 
@@ -51,14 +46,9 @@ class ServiciosController extends Controller
         return view('servicios.edit', compact('servicio', 'choferes'));
     }
 
-    public function update(Request $request, servicios $servicio)
+    public function update(ServicioRequest $request, servicios $servicio)
     {
-        $data = $request->validate([
-            'origen_viaje' => ['required', 'string', 'max:255'],
-            'destino_viaje' => ['required', 'string', 'max:255'],
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pedido' => ['required', 'date'],
-        ]);
+        $data = $request->validated();
 
         $servicio->update($data);
 

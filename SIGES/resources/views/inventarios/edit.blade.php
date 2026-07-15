@@ -52,7 +52,7 @@
                 </div>
                 <div class="field-card">
                     <label class="field-label">Cantidad (stock)</label>
-                    <input type="number" name="cantidad" min="0" value="{{ old('cantidad', $inventario->cantidad) }}" required>
+                    <input type="number" name="cantidad" min="0" step="1" value="{{ old('cantidad', $inventario->cantidad) }}" required>
                     @error('cantidad')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
             </div>

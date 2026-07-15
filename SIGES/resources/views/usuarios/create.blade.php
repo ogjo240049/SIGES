@@ -57,7 +57,7 @@
                 </div>
                 <div class="field-card">
                     <label class="field-label">Teléfono</label>
-                    <input type="text" name="telefono" value="{{ old('telefono') }}" required>
+                    <input type="text" name="telefono" value="{{ old('telefono') }}" required pattern="[0-9+\-\s]{7,15}" title="Ingresa un teléfono válido">
                     @error('telefono')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="field-card">

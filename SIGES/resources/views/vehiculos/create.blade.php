@@ -38,6 +38,17 @@
 
         <div class="panel-separator"></div>
 
+        @if($errors->any())
+            <div class="flash-message" role="alert" style="margin-bottom: 20px;">
+                <strong>Revisa los campos marcados:</strong>
+                <ul style="margin: 8px 0 0 16px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('vehiculos.store') }}">
             @csrf
             <div class="field-grid">
@@ -48,7 +59,7 @@
                 </div>
                 <div class="field-card">
                     <label class="field-label">Placa</label>
-                    <input type="text" name="placa" value="{{ old('placa') }}" required>
+                    <input type="text" name="placa" value="{{ old('placa') }}" required maxlength="40">
                     @error('placa')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="field-card">

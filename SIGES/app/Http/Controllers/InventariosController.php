@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InventarioRequest;
 use App\Models\inventario;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class InventariosController extends Controller
@@ -20,13 +20,9 @@ class InventariosController extends Controller
         return view('inventarios.create');
     }
 
-    public function store(Request $request)
+    public function store(InventarioRequest $request)
     {
-        $data = $request->validate([
-            'nombre_pieza' => ['required', 'string', 'max:255'],
-            'tipo_pieza' => ['required', 'string', 'max:255'],
-            'cantidad' => ['required', 'integer', 'min:0'],
-        ]);
+        $data = $request->validated();
 
         inventario::create($data);
 
@@ -44,13 +40,9 @@ class InventariosController extends Controller
         return view('inventarios.edit', compact('inventario'));
     }
 
-    public function update(Request $request, inventario $inventario)
+    public function update(InventarioRequest $request, inventario $inventario)
     {
-        $data = $request->validate([
-            'nombre_pieza' => ['required', 'string', 'max:255'],
-            'tipo_pieza' => ['required', 'string', 'max:255'],
-            'cantidad' => ['required', 'integer', 'min:0'],
-        ]);
+        $data = $request->validated();
 
         $inventario->update($data);
 
