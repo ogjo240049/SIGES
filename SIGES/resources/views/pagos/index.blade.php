@@ -26,6 +26,23 @@
     </section>
 
     <section class="table-card">
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('pagos.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="unidad" 
+                    placeholder="Filtrar por matrícula/unidad..." 
+                    value="{{ request('unidad') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('unidad'))
+                    <a href="{{ route('pagos.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
         @if($pagos->isEmpty())
             <div class="empty-state">
                 <h2>No hay registros de pagos aún</h2>

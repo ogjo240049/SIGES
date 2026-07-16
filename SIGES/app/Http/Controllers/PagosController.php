@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PagoRequest;
 use App\Models\choferes;
 use App\Models\pagos;
+use Illuminate\Http\Request; // <-- Importación añadida para leer el formulario
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +44,8 @@ class PagosController extends Controller
         abort_unless($this->currentUserChoferIds()->contains($pago->id_chofer), Response::HTTP_FORBIDDEN);
     }
 
-    public function index()
+    // <-- Se inyecta Request aquí
+    public function index(Request $request) 
     {
         $query = pagos::with('chofer.usuario', 'chofer.vehiculo')
             ->latest();
@@ -52,6 +54,16 @@ class PagosController extends Controller
             $choferIds = $this->currentUserChoferIds();
 
             $query->whereIn('id_chofer', $choferIds->all());
+        }
+
+        // <-- LÓGICA DE FILTRADO AÑADIDA
+        if ($request->filled('unidad')) {
+            $unidad = $request->input('unidad');
+            
+            $query->whereHas('chofer.vehiculo', function($q) use ($unidad) {
+                // Cambia 'matricula' si tu columna en la tabla vehiculos se llama diferente
+                $q->where('matricula', 'LIKE', '%' . $unidad . '%');
+            });
         }
 
         $pagos = $query->get();
