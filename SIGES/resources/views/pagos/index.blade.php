@@ -26,6 +26,7 @@
     </section>
 
     <section class="table-card">
+        @if(auth()->user()?->isAdmin() || auth()->user()?->isOperator())
         <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
             <form action="{{ route('pagos.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
                 <input 
@@ -43,6 +44,7 @@
                 @endif
             </form>
         </div>
+        @endif
         @if($pagos->isEmpty())
             <div class="empty-state">
                 <h2>No hay registros de pagos aún</h2>
