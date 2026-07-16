@@ -519,3 +519,11 @@ select:hover {
         width: 100%;
     }
 }
+
+/* --- NUEVO LOGO EN LA BARRA SUPERIOR --- */
+.brand-mark-img {
+    width: 46px;         /* Tamaño similar al cuadrado azul original */
+    height: 46px;
+    object-fit: contain; /* Esto asegura que el logo no se estire ni se aplaste */
+    margin-right: 4px;   /* Un pequeño espacio entre el logo y el texto de SIGES */
+}

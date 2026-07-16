@@ -12,12 +12,15 @@
     <div class="shell">
         <header class="topbar">
             <div class="brand">
-                <span class="brand-mark"></span>
+                <!-- Aquí reemplazamos el cuadrado azul por tu logo -->
+                <img src="{{ asset('images/mini-logo.png') }}" alt="Logo Radio Taxi" class="brand-mark-img">
+                
                 <div>
                     <span class="brand-name">SIGES</span>
                     <span class="brand-subtitle">Gestión inteligente</span>
                 </div>
             </div>
+
 
             <div class="topbar-actions">
                 @hasSection('topbar-actions')
