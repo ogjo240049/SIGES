@@ -54,7 +54,7 @@
                                     <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" onsubmit="return confirm('¿Eliminar este servicio?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>
