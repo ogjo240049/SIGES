@@ -12,7 +12,6 @@
     <div class="shell">
         <header class="topbar">
             <div class="brand">
-                <!-- Aquí reemplazamos el cuadrado azul por tu logo -->
                 <img src="{{ asset('images/mini-logo.png') }}" alt="Logo Radio Taxi" class="brand-mark-img">
                 
                 <div>
