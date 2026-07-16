@@ -38,7 +38,6 @@
 
         <form method="POST" action="{{ route('usuarios.store') }}">
             @csrf
-
             <div class="field-grid">
                 <div class="field-card">
                     <label class="field-label">Nombre</label>

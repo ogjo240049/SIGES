@@ -67,10 +67,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="remember">
-                        <input type="checkbox" name="remember" value="1">
-                        Recordarme
-                    </label>
+                    
                 </div>
 
                 <button type="submit" class="button">Entrar al sistema</button>
