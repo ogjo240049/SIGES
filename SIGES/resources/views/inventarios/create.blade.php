@@ -16,7 +16,7 @@
         <div class="page-heading">
             <p class="eyebrow">Registrar pieza</p>
             <h1>Agregar pieza al inventario</h1>
-            <p class="hero-copy">Registra una pieza con su nombre, tipo y cantidad disponible.</p>
+            <p class="hero-copy">Registra una nueva pieza definiendo su nombre, categoría y el stock inicial disponible.</p>
         </div>
     </section>
 
@@ -29,7 +29,7 @@
             </div>
             <div>
                 <h2>Nueva pieza</h2>
-                <p>Captura los datos de la pieza para mantener el control de stock.</p>
+                <p>Captura los datos iniciales de la pieza para integrarla de inmediato al control de stock.</p>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
                     @error('tipo_pieza')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="field-card">
-                    <label class="field-label">Cantidad (stock)</label>
+                    <label class="field-label">Cantidad (stock inicial)</label>
                     <input type="number" name="cantidad" min="0" step="1" value="{{ old('cantidad', 0) }}" required>
                     @error('cantidad')<div class="field-error">{{ $message }}</div>@enderror
                 </div>

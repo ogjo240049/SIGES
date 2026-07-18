@@ -16,7 +16,7 @@
         <div class="page-heading">
             <p class="eyebrow">Editar pieza</p>
             <h1>Actualizar registro</h1>
-            <p class="hero-copy">Modifica nombre, tipo o cantidad de la pieza registrada.</p>
+            <p class="hero-copy">Modifica el nombre, tipo o cantidad de la pieza seleccionada.</p>
         </div>
     </section>
 
@@ -29,7 +29,7 @@
             </div>
             <div>
                 <h2>Editar pieza</h2>
-                <p>Actualiza la información de la pieza.</p>
+                <p>Actualiza la información detallada de la pieza en el inventario.</p>
             </div>
         </div>
 

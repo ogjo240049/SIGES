@@ -68,21 +68,21 @@
                     <input type="text" name="identificacion" value="{{ old('identificacion') }}" required>
                     @error('identificacion')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
-<div class="field-card">
-    <label class="field-label">Unidad asignada</label>
-    <select name="unidad_asignada">
-        <option value="">Sin unidad</option>
-        @foreach($vehiculos as $vehiculo)
-            <option value="{{ $vehiculo->matricula }}" {{ old('unidad_asignada') == $vehiculo->matricula ? 'selected' : '' }}>
-                {{ $vehiculo->nombre }} (Placa: {{ $vehiculo->placa }})
-                @if($vehiculo->chofer)
-                    - [Asignada a {{ $vehiculo->chofer->name ?? 'otro chofer' }}]
-                @endif
-            </option>
-        @endforeach
-    </select>
-    @error('unidad_asignada')<div class="field-error">{{ $message }}</div>@enderror
-</div>
+                <div class="field-card">
+                    <label class="field-label">Unidad asignada</label>
+                    <select name="unidad_asignada">
+                        <option value="">Sin unidad</option>
+                        @foreach($vehiculos as $vehiculo)
+                            <option value="{{ $vehiculo->matricula }}" {{ old('unidad_asignada') == $vehiculo->matricula ? 'selected' : '' }}>
+                                {{ $vehiculo->nombre }} (Placa: {{ $vehiculo->placa }})
+                                @if($vehiculo->chofer)
+                                    - [Asignada a {{ $vehiculo->chofer->usuario?->name ?? 'otro chofer' }}]
+                                @endif
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('unidad_asignada')<div class="field-error">{{ $message }}</div>@enderror
+                </div>
             </div>
 
             <div class="form-actions">

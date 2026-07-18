@@ -74,9 +74,10 @@
                         <option value="">Sin unidad</option>
                         @foreach($vehiculos as $vehiculo)
                             <option value="{{ $vehiculo->matricula }}" {{ old('unidad_asignada', $chofer->unidad_asignada) == $vehiculo->matricula ? 'selected' : '' }}>
-                                {{ $vehiculo->matricula }} - {{ $vehiculo->placa }}
+                                <!-- CORRECCIÓN: Desplegamos el nombre comercial del vehículo y su placa -->
+                                {{ $vehiculo->nombre }} (Placa: {{ $vehiculo->placa }})
                                 @if($vehiculo->chofer && $vehiculo->chofer->id_chofer !== $chofer->id_chofer)
-                                    (Asignada)
+                                    - [Asignada a {{ $vehiculo->chofer->usuario?->name ?? 'otro chofer' }}]
                                 @endif
                             </option>
                         @endforeach

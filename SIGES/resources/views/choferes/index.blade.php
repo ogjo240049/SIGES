@@ -22,9 +22,28 @@
     </section>
 
     <section class="table-card">
+        <!-- BUSCADOR AGREGADO PARA CUMPLIR LA FN.12 -->
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('choferes.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="buscar_chofer" 
+                    placeholder="Buscar chofer por nombre..." 
+                    value="{{ request('buscar_chofer') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('buscar_chofer'))
+                    <a href="{{ route('choferes.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+
         @if($choferes->isEmpty())
             <div class="empty-state">
-                <h2>No hay choferes registrados aún</h2>
+                <h2>No hay choferes registrados aún o no coinciden con la búsqueda</h2>
                 <p>Agrega el primer chofer para comenzar a administrar la operación.</p>
             </div>
         @else
@@ -34,17 +53,24 @@
                         <th>Chofer</th>
                         <th>Identificación</th>
                         <th>Unidad</th>
-                        <th>Usuario</th>
+                        <th>Usuario (ID)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($choferes as $chofer)
                         <tr>
-                            <td>#{{ $chofer->id_chofer }}</td>
+                            <!-- Muestra el NOMBRE completo del chofer desde la relación usuario -->
+                            <td>{{ $chofer->usuario?->name ?? 'Sin nombre asignado' }}</td>
+                            
                             <td>{{ $chofer->identificacion }}</td>
-                            <td>{{ $chofer->vehiculo?->matricula ?? 'Sin unidad' }}</td>
-                            <td>{{ $chofer->usuario?->name ?? 'N/D' }}</td>
+                            
+                            <!-- Muestra el NOMBRE comercial del vehículo (ej: M-15) -->
+                            <td>{{ $chofer->vehiculo?->nombre ?? 'Sin unidad' }}</td>
+                            
+                            <!-- Muestra únicamente el ID numérico del usuario en el sistema -->
+                            <td>#{{ $chofer->usuario?->id ?? 'N/D' }}</td>
+                            
                             <td>
                                 <div class="actions">
                                     <a href="{{ route('choferes.show', $chofer) }}" class="button-ghost">Ver</a>

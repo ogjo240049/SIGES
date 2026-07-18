@@ -9,6 +9,23 @@
         </svg>
         Volver al inventario
     </a>
+    
+    {{-- BOTÓN ACCIÓN RÁPIDA DE CONSUMO --}}
+    @if($inventario->cantidad > 0)
+        <form action="{{ route('inventarios.update', $inventario) }}" method="POST" style="display: inline-block;">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="nombre_pieza" value="{{ $inventario->nombre_pieza }}">
+            <input type="hidden" name="tipo_pieza" value="{{ $inventario->tipo_pieza }}">
+            <input type="hidden" name="cantidad" value="{{ $inventario->cantidad - 1 }}">
+            <button type="submit" class="button-primary" style="background-color: #10b981;">
+                Usar 1 pieza
+            </button>
+        </form>
+    @else
+        <button class="button-ghost" style="opacity: 0.5; cursor: not-allowed;" disabled>Agotado</button>
+    @endif
+
     <a href="{{ route('inventarios.edit', $inventario) }}" class="button-secondary">Editar pieza</a>
 @endsection
 
@@ -46,8 +63,12 @@
                 <p>{{ $inventario->tipo_pieza }}</p>
             </div>
             <div class="field-card">
-                <span class="field-label">Cantidad</span>
-                <p>{{ $inventario->cantidad }}</p>
+                <span class="field-label">Cantidad disponible</span>
+                <p>
+                    <span class="payment-tag" style="background-color: {{ $inventario->cantidad > 0 ? 'rgba(59, 130, 246, 0.1)' : 'rgba(239, 68, 68, 0.1)' }}; color: {{ $inventario->cantidad > 0 ? '#1d4ed8' : '#dc2626' }}; font-size: 1.1rem; padding: 4px 12px;">
+                        {{ $inventario->cantidad }} unidades
+                    </span>
+                </p>
             </div>
         </div>
     </section>

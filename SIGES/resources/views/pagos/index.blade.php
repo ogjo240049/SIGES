@@ -45,6 +45,7 @@
             </form>
         </div>
         @endif
+
         @if($pagos->isEmpty())
             <div class="empty-state">
                 <h2>No hay registros de pagos aún</h2>
@@ -70,7 +71,6 @@
                             <td>{{ $pago->fecha_pago->format('d/m/Y') }}</td>
                             <td>{{ $pago->created_at?->format('H:i') ?? '--:--' }}</td>
                             <td>{{ $pago->chofer->usuario?->name ?? 'Chofer no disponible' }}</td>
-                            <!-- CAMBIO AQUÍ: Ahora muestra el nombre del vehículo -->
                             <td>{{ $pago->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
                             <td><span class="payment-tag">${{ number_format($pago->monto_pago, 2, ',', '.') }}</span></td>
                             @unless(auth()->user()?->isDriver())

@@ -20,11 +20,21 @@ class ChoferesController extends Controller
             ->values();
     }
 
-    public function index()
+// Inyectamos Request para procesar el filtro de búsqueda
+    public function index(\Illuminate\Http\Request $request)
     {
-        $choferes = choferes::with('usuario', 'vehiculo')
-            ->latest()
-            ->get();
+        $query = choferes::with('usuario', 'vehiculo')->latest();
+
+        // Filtro condicional por el nombre del chofer (a través de la relación usuario)
+        if ($request->filled('buscar_chofer')) {
+            $buscar = $request->input('buscar_chofer');
+            
+            $query->whereHas('usuario', function ($q) use ($buscar) {
+                $q->where('name', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $choferes = $query->get();
 
         return view('choferes.index', compact('choferes'));
     }

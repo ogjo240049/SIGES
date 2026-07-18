@@ -44,7 +44,9 @@
                         <tr>
                             <td>{{ $servicio->fecha_pedido->format('d/m/Y') }}</td>
                             <td>{{ $servicio->chofer->usuario?->name ?? 'N/D' }}</td>
-                            <td>{{ $servicio->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
+                            <!-- CAMBIO: Ahora renderiza el nombre comercial del vehículo -->
+                            <td>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
+                            
                             <td>{{ $servicio->origen_viaje }}</td>
                             <td>{{ $servicio->destino_viaje }}</td>
                             <td>
