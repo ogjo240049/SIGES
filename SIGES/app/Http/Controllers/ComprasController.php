@@ -5,12 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompraRequest;
 use App\Models\compras;
 use App\Models\inventario;
+use Illuminate\Http\Request; // <-- 1. IMPORTACIÓN AÑADIDA
 
 class ComprasController extends Controller
 {
-    public function index()
+    // <-- 2. SE INYECTA LA CLASE Request AQUÍ
+    public function index(Request $request)
     {
-        $compras = compras::with('inventario')->latest()->get();
+        $query = compras::with('inventario')->latest();
+
+        // 3. LÓGICA DE FILTRADO A TRAVÉS DE LA RELACIÓN INVENTARIO
+        if ($request->filled('buscar_pieza')) {
+            $buscar = $request->input('buscar_pieza');
+            
+            $query->whereHas('inventario', function ($q) use ($buscar) {
+                $q->where('nombre_pieza', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $compras = $query->get();
 
         return view('compras.index', compact('compras'));
     }

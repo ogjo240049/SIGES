@@ -8,11 +8,22 @@ use App\Models\vehiculos;
 
 class VehiculosController extends Controller
 {
-    public function index()
+// Se añade la inyección de Request en los parámetros del método
+    public function index(\Illuminate\Http\Request $request)
     {
-        $vehiculos = vehiculos::with('chofer.usuario')
-            ->latest()
-            ->get();
+        $query = vehiculos::with('chofer.usuario')->latest();
+
+        // Lógica de filtrado por nombre o placa del vehículo
+        if ($request->filled('buscar_vehiculo')) {
+            $buscar = $request->input('buscar_vehiculo');
+            
+            $query->where(function($q) use ($buscar) {
+                $q->where('nombre', 'LIKE', '%' . $buscar . '%')
+                  ->orWhere('placa', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $vehiculos = $query->get();
 
         return view('vehiculos.index', compact('vehiculos'));
     }

@@ -22,9 +22,28 @@
     </section>
 
     <section class="table-card">
+        <!-- BLOQUE DE FILTRADO AÑADIDO PARA CUMPLIR FN.12 -->
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('inventarios.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="buscar_pieza" 
+                    placeholder="Buscar pieza por nombre..." 
+                    value="{{ request('buscar_pieza') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('buscar_pieza'))
+                    <a href="{{ route('inventarios.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+
         @if($inventarios->isEmpty())
             <div class="empty-state">
-                <h2>No hay piezas registradas aún</h2>
+                <h2>No hay piezas registradas aún o no coinciden con la búsqueda</h2>
                 <p>Agrega la primera pieza para comenzar a llevar el control de existencias.</p>
             </div>
         @else

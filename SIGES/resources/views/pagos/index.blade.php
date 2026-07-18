@@ -32,7 +32,7 @@
                 <input 
                     type="text" 
                     name="unidad" 
-                    placeholder="Filtrar por matrícula/unidad..." 
+                    placeholder="Filtrar por nombre de unidad..." 
                     value="{{ request('unidad') }}" 
                     class="form-input"
                     style="flex: 1; max-width: 300px;"
@@ -70,7 +70,8 @@
                             <td>{{ $pago->fecha_pago->format('d/m/Y') }}</td>
                             <td>{{ $pago->created_at?->format('H:i') ?? '--:--' }}</td>
                             <td>{{ $pago->chofer->usuario?->name ?? 'Chofer no disponible' }}</td>
-                            <td>{{ $pago->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
+                            <!-- CAMBIO AQUÍ: Ahora muestra el nombre del vehículo -->
+                            <td>{{ $pago->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
                             <td><span class="payment-tag">${{ number_format($pago->monto_pago, 2, ',', '.') }}</span></td>
                             @unless(auth()->user()?->isDriver())
                                 <td>
@@ -80,7 +81,7 @@
                                         <form action="{{ route('pagos.destroy', $pago) }}" method="POST" onsubmit="return confirm('¿Eliminar este pago?');">
                                             @csrf
                                             @method('DELETE')
-                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
+                                            <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>

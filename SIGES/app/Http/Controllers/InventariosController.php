@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InventarioRequest;
 use App\Models\inventario;
+use Illuminate\Http\Request; // <-- 1. IMPORTACIÓN AÑADIDA
 use Illuminate\Support\Facades\DB;
 
 class InventariosController extends Controller
 {
-    public function index()
+    // <-- 2. SE INYECTA LA CLASE Request AQUÍ
+    public function index(Request $request)
     {
-        $inventarios = inventario::latest()->get();
+        $query = inventario::latest();
+
+        // 3. LÓGICA DE FILTRADO POR NOMBRE DE PIEZA
+        if ($request->filled('buscar_pieza')) {
+            $buscar = $request->input('buscar_pieza');
+            $query->where('nombre_pieza', 'LIKE', '%' . $buscar . '%');
+        }
+
+        $inventarios = $query->get();
 
         return view('inventarios.index', compact('inventarios'));
     }

@@ -22,9 +22,28 @@
     </section>
 
     <section class="table-card">
+        <!-- BLOQUE DE FILTRADO PARA VEHÍCULOS -->
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('vehiculos.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="buscar_vehiculo" 
+                    placeholder="Buscar por nombre o placa..." 
+                    value="{{ request('buscar_vehiculo') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('buscar_vehiculo'))
+                    <a href="{{ route('vehiculos.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+
         @if($vehiculos->isEmpty())
             <div class="empty-state">
-                <h2>No hay taxis registrados aún</h2>
+                <h2>No hay taxis registrados aún o no coinciden con la búsqueda</h2>
                 <p>Agrega la primera unidad para comenzar a llevar un control detallado de tu flotilla.</p>
             </div>
         @else

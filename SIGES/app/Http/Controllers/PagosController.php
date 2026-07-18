@@ -44,7 +44,7 @@ class PagosController extends Controller
         abort_unless($this->currentUserChoferIds()->contains($pago->id_chofer), Response::HTTP_FORBIDDEN);
     }
 
-    // <-- Se inyecta Request aquí
+// <-- Se inyecta Request aquí
     public function index(Request $request) 
     {
         $query = pagos::with('chofer.usuario', 'chofer.vehiculo')
@@ -56,13 +56,13 @@ class PagosController extends Controller
             $query->whereIn('id_chofer', $choferIds->all());
         }
 
-        // <-- LÓGICA DE FILTRADO AÑADIDA
+        // <-- LÓGICA DE FILTRADO MODIFICADA PARA BUSCAR POR NOMBRE
         if ($request->filled('unidad')) {
             $unidad = $request->input('unidad');
             
             $query->whereHas('chofer.vehiculo', function($q) use ($unidad) {
-                // Cambia 'matricula' si tu columna en la tabla vehiculos se llama diferente
-                $q->where('matricula', 'LIKE', '%' . $unidad . '%');
+                // Cambiado de 'matricula' a 'nombre'
+                $q->where('nombre', 'LIKE', '%' . $unidad . '%');
             });
         }
 
