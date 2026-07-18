@@ -16,7 +16,14 @@
     <section class="page-header">
         <div class="page-heading">
             <p class="eyebrow">Detalle del chofer</p>
-            <h1>Chofer #{{ $chofer->id_chofer }}</h1>
+            <h1>
+                {{ $chofer->usuario?->name ?? 'Sin nombre asignado' }} 
+                @if($chofer->vehiculo)
+                    <span style="font-weight: normal; color: #6b7280; font-size: 0.85em;">({{ $chofer->vehiculo->nombre }})</span>
+                @else
+                    <span style="font-weight: normal; color: #9ca3af; font-size: 0.85em;">(Sin unidad)</span>
+                @endif
+            </h1>
             <p class="hero-copy">Consulta la relación entre el usuario, la identificación y la unidad asociada.</p>
         </div>
     </section>
@@ -52,7 +59,7 @@
             </div>
             <div class="field-card">
                 <span class="field-label">Unidad asignada</span>
-                <p>{{ $chofer->vehiculo?->matricula ?? 'Sin unidad' }}</p>
+                <p>{{ $chofer->vehiculo?->nombre ?? 'Sin unidad' }}</p>
             </div>
             <div class="field-card">
                 <span class="field-label">Pagos</span>

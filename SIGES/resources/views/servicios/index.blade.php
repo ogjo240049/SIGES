@@ -44,7 +44,9 @@
                         <tr>
                             <td>{{ $servicio->fecha_pedido->format('d/m/Y') }}</td>
                             <td>{{ $servicio->chofer->usuario?->name ?? 'N/D' }}</td>
-                            <td>{{ $servicio->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
+                            <!-- CAMBIO: Ahora renderiza el nombre comercial del vehículo -->
+                            <td>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
+                            
                             <td>{{ $servicio->origen_viaje }}</td>
                             <td>{{ $servicio->destino_viaje }}</td>
                             <td>
@@ -54,7 +56,7 @@
                                     <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" onsubmit="return confirm('¿Eliminar este servicio?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>

@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InventarioRequest;
 use App\Models\inventario;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // <-- 1. IMPORTACIÓN AÑADIDA
 use Illuminate\Support\Facades\DB;
 
 class InventariosController extends Controller
 {
-    public function index()
+    // <-- 2. SE INYECTA LA CLASE Request AQUÍ
+    public function index(Request $request)
     {
-        $inventarios = inventario::latest()->get();
+        $query = inventario::latest();
+
+        // 3. LÓGICA DE FILTRADO POR NOMBRE DE PIEZA
+        if ($request->filled('buscar_pieza')) {
+            $buscar = $request->input('buscar_pieza');
+            $query->where('nombre_pieza', 'LIKE', '%' . $buscar . '%');
+        }
+
+        $inventarios = $query->get();
 
         return view('inventarios.index', compact('inventarios'));
     }
@@ -20,13 +30,9 @@ class InventariosController extends Controller
         return view('inventarios.create');
     }
 
-    public function store(Request $request)
+    public function store(InventarioRequest $request)
     {
-        $data = $request->validate([
-            'nombre_pieza' => ['required', 'string', 'max:255'],
-            'tipo_pieza' => ['required', 'string', 'max:255'],
-            'cantidad' => ['required', 'integer', 'min:0'],
-        ]);
+        $data = $request->validated();
 
         inventario::create($data);
 
@@ -44,13 +50,9 @@ class InventariosController extends Controller
         return view('inventarios.edit', compact('inventario'));
     }
 
-    public function update(Request $request, inventario $inventario)
+    public function update(InventarioRequest $request, inventario $inventario)
     {
-        $data = $request->validate([
-            'nombre_pieza' => ['required', 'string', 'max:255'],
-            'tipo_pieza' => ['required', 'string', 'max:255'],
-            'cantidad' => ['required', 'integer', 'min:0'],
-        ]);
+        $data = $request->validated();
 
         $inventario->update($data);
 
@@ -61,7 +63,7 @@ class InventariosController extends Controller
     public function destroy(inventario $inventario)
     {
         DB::transaction(function () use ($inventario): void {
-            $inventario->compras()->update(['id_inventario' => null]);
+            $inventario->compras()->delete();
             $inventario->delete();
         });
 

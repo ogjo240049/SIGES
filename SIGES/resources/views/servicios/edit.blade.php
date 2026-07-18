@@ -47,7 +47,8 @@
                         <option value="">Selecciona un chofer</option>
                         @foreach($choferes as $chofer)
                             <option value="{{ $chofer->id_chofer }}" {{ old('id_chofer', $servicio->id_chofer) == $chofer->id_chofer ? 'selected' : '' }}>
-                                {{ $chofer->usuario?->name ?? 'Chofer' }} · {{ $chofer->vehiculo?->matricula ?? 'Sin vehículo' }}
+                                <!-- CAMBIO: En la opción del select se concatena el nombre del vehículo -->
+                                {{ $chofer->usuario?->name ?? 'Chofer' }} · {{ $chofer->vehiculo?->nombre ?? 'Sin vehículo' }}
                             </option>
                         @endforeach
                     </select>

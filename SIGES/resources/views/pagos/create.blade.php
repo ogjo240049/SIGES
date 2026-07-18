@@ -51,7 +51,7 @@
                         <option value="">Selecciona un chofer</option>
                         @foreach($choferes as $chofer)
                             <option value="{{ $chofer->id_chofer }}" {{ old('id_chofer') == $chofer->id_chofer ? 'selected' : '' }}>
-                                {{ $chofer->usuario?->name ?? 'Chofer' }} · {{ $chofer->vehiculo?->matricula ?? 'Sin vehículo' }}
+                                {{ $chofer->usuario?->name ?? 'Chofer' }} · {{ $chofer->vehiculo?->nombre ?? 'Sin vehículo' }}
                             </option>
                         @endforeach
                     </select>
@@ -87,7 +87,7 @@
                     </label>
                     <div class="input-prefix-group">
                         <span class="input-prefix">$</span>
-                        <input type="number" name="monto_pago" min="0" step="0.01" value="{{ old('monto_pago') }}" placeholder="0.00" required>
+                        <input type="number" name="monto_pago" min="0.01" step="0.01" value="{{ old('monto_pago') }}" placeholder="0.00" required>
                     </div>
                     @error('monto_pago')
                         <div class="field-error">{{ $message }}</div>
@@ -97,11 +97,11 @@
 
             <div class="form-actions">
                 <button type="submit" class="button-primary">
-                    <svg width="20" height="20" style="vertical-align: middle; margin-right: 8px;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 13V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 9L12 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 12V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 13V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 9L12 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 12V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     Guardar pago
                 </button>
 

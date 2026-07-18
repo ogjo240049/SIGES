@@ -46,7 +46,7 @@
             </div>
             <div class="field-card">
                 <span class="field-label">Vehículo</span>
-                <p>{{ $pago->chofer->vehiculo?->matricula ?? 'Sin vehículo asignado' }}</p>
+                <p>{{ $pago->chofer->vehiculo?->nombre ?? 'Sin vehículo asignado' }}</p>
             </div>
             <div class="field-card">
                 <span class="field-label">Fecha de pago</span>

@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompraRequest;
 use App\Models\compras;
 use App\Models\inventario;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // <-- 1. IMPORTACIÓN AÑADIDA
 
 class ComprasController extends Controller
 {
-    public function index()
+    // <-- 2. SE INYECTA LA CLASE Request AQUÍ
+    public function index(Request $request)
     {
-        $compras = compras::with('inventario')->latest()->get();
+        $query = compras::with('inventario')->latest();
+
+        // 3. LÓGICA DE FILTRADO A TRAVÉS DE LA RELACIÓN INVENTARIO
+        if ($request->filled('buscar_pieza')) {
+            $buscar = $request->input('buscar_pieza');
+            
+            $query->whereHas('inventario', function ($q) use ($buscar) {
+                $q->where('nombre_pieza', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $compras = $query->get();
 
         return view('compras.index', compact('compras'));
     }
@@ -22,15 +35,9 @@ class ComprasController extends Controller
         return view('compras.create', compact('inventarios'));
     }
 
-    public function store(Request $request)
+    public function store(CompraRequest $request)
     {
-        $data = $request->validate([
-            'id_inventario' => ['required', 'integer', 'exists:inventarios,id_inventario'],
-            'precio_unitario' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-            'cantidad_compra' => ['required', 'integer', 'min:1'],
-            'fecha' => ['required', 'date'],
-            'lugar_compra' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         $compra = compras::create($data);
 
@@ -56,15 +63,9 @@ class ComprasController extends Controller
         return view('compras.edit', compact('compra', 'inventarios'));
     }
 
-    public function update(Request $request, compras $compra)
+    public function update(CompraRequest $request, compras $compra)
     {
-        $data = $request->validate([
-            'id_inventario' => ['required', 'integer', 'exists:inventarios,id_inventario'],
-            'precio_unitario' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-            'cantidad_compra' => ['required', 'integer', 'min:1'],
-            'fecha' => ['required', 'date'],
-            'lugar_compra' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         // Ajustar stock: si cambió inventario o cantidad
         if ($compra->id_inventario != $data['id_inventario']) {

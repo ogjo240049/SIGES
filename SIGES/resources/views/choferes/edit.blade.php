@@ -36,6 +36,17 @@
 
         <div class="panel-separator"></div>
 
+        @if($errors->any())
+            <div class="flash-message" role="alert" style="margin-bottom: 20px;">
+                <strong>Revisa los campos marcados:</strong>
+                <ul style="margin: 8px 0 0 16px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('choferes.update', $chofer) }}">
             @csrf
             @method('PUT')
@@ -63,9 +74,10 @@
                         <option value="">Sin unidad</option>
                         @foreach($vehiculos as $vehiculo)
                             <option value="{{ $vehiculo->matricula }}" {{ old('unidad_asignada', $chofer->unidad_asignada) == $vehiculo->matricula ? 'selected' : '' }}>
-                                {{ $vehiculo->matricula }} - {{ $vehiculo->placa }}
+                                <!-- CORRECCIÓN: Desplegamos el nombre comercial del vehículo y su placa -->
+                                {{ $vehiculo->nombre }} (Placa: {{ $vehiculo->placa }})
                                 @if($vehiculo->chofer && $vehiculo->chofer->id_chofer !== $chofer->id_chofer)
-                                    (Asignada)
+                                    - [Asignada a {{ $vehiculo->chofer->usuario?->name ?? 'otro chofer' }}]
                                 @endif
                             </option>
                         @endforeach

@@ -12,11 +12,14 @@
 <body>
     <main class="frame">
         <section class="hero">
-            <div class="brand">
-                <span class="brand-mark"></span>
-                <span>SIGES</span>
+            <div class="logo-wrapper">
+                <img src="{{ asset('images/logo1.png') }}" alt="Radio Taxi Estrella Sureña" class="hero-logo">
             </div>
-
+            
+            <div class="hero-text">
+                <center><h1>SIGES</h1></center>
+                <p>Gestión inteligente para el control de pagos y unidades de Radio Taxi Estrella Sureña.</p>
+            </div>
         </section>
 
         <section class="form-panel">
@@ -24,7 +27,7 @@
             <p>Accede con tu correo y contraseña para continuar al tablero principal.</p>
 
             @if ($errors->any())
-                <div class="alert">
+                <div class="alert" role="alert">
                     {{ $errors->first() }}
                 </div>
             @endif
@@ -64,12 +67,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="remember">
-                        <input type="checkbox" name="remember" value="1">
-                        Recordarme
-                    </label>
-
-                    <a class="link" href="mailto:soporte@siges.local">¿Necesitas acceso?</a>
+                    
                 </div>
 
                 <button type="submit" class="button">Entrar al sistema</button>

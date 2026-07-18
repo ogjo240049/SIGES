@@ -22,9 +22,28 @@
     </section>
 
     <section class="table-card">
+        <!-- BLOQUE DE FILTRADO AÑADIDO PARA CUMPLIR FN.12 -->
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('compras.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="buscar_pieza" 
+                    placeholder="Filtrar historial por pieza..." 
+                    value="{{ request('buscar_pieza') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('buscar_pieza'))
+                    <a href="{{ route('compras.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+
         @if($compras->isEmpty())
             <div class="empty-state">
-                <h2>No hay compras registradas aún</h2>
+                <h2>No hay compras registradas aún o no coinciden con la búsqueda</h2>
                 <p>Agrega el primer registro para llevar control de adquisiciones.</p>
             </div>
         @else
@@ -54,7 +73,7 @@
                                     <form action="{{ route('compras.destroy', $compra) }}" method="POST" onsubmit="return confirm('¿Eliminar esta compra?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>

@@ -53,10 +53,10 @@ class ReportesController extends Controller
 
         if ($reporteTipo === 'unidad' && $request->filled('matricula')) {
             $request->validate([
-                'matricula' => ['required', 'integer', 'exists:vehiculos,matricula'],
+                'matricula' => ['required', 'string', 'exists:vehiculos,matricula'],
             ]);
 
-            $vehiculoSeleccionado = vehiculos::findOrFail($request->integer('matricula'));
+            $vehiculoSeleccionado = vehiculos::findOrFail($request->string('matricula'));
 
             $pagosUnidad = pagos::with('chofer.usuario', 'chofer.vehiculo')
                 ->whereHas('chofer', function ($query) use ($vehiculoSeleccionado) {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
@@ -35,17 +35,9 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'apellido_pat' => ['required', 'string', 'max:255'],
-            'apellido_mat' => ['required', 'string', 'max:255'],
-            'telefono' => ['required', 'string', 'max:20'],
-            'rol' => ['required', 'integer', Rule::in(array_keys($this->roleOptions()))],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $data = $request->validated();
 
         User::create($data);
 
@@ -69,17 +61,9 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'apellido_pat' => ['required', 'string', 'max:255'],
-            'apellido_mat' => ['required', 'string', 'max:255'],
-            'telefono' => ['required', 'string', 'max:20'],
-            'rol' => ['required', 'integer', Rule::in(array_keys($this->roleOptions()))],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ]);
+        $data = $request->validated();
 
         if (blank($data['password'] ?? null)) {
             unset($data['password']);

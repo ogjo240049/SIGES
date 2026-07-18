@@ -44,7 +44,8 @@
             </div>
             <div class="field-card">
                 <span class="field-label">Vehículo</span>
-                <p>{{ $servicio->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</p>
+                <!-- CAMBIO: Ahora despliega el nombre comercial del vehículo -->
+                <p>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</p>
             </div>
             <div class="field-card">
                 <span class="field-label">Origen</span>

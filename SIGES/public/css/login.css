@@ -1,15 +1,15 @@
 :root {
-    --bg-1: #07111f;
-    --bg-2: #111e33;
-    --panel: rgba(10, 18, 34, 0.72);
-    --panel-strong: rgba(16, 26, 48, 0.9);
-    --border: rgba(255, 255, 255, 0.12);
-    --text: #eef3ff;
-    --muted: #9aa9c2;
-    --accent: #3b82f6;
-    --accent-2: #ef4444;
-    --danger: #ef4444;
-    --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+    --bg-1: #a9c8df; /* Azul claro del fondo */
+    --bg-2: #9dbbd1; /* Azul claro ligeramente más oscuro para el gradiente */
+    --panel: #ffffff; /* Fondo de las tarjetas blancas */
+    --panel-strong: #f8fafc; /* Blanco ligeramente grisáceo */
+    --border: rgba(0, 0, 0, 0.08); /* Bordes sutiles grises */
+    --text: #0f172a; /* Texto principal oscuro */
+    --muted: #64748b; /* Texto secundario/subtítulos gris */
+    --accent: #2563eb; /* Azul brillante de los botones y textos resaltados */
+    --accent-2: #7c3aed; /* Morado del logo para los gradientes */
+    --danger: #ef4444; 
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave para modo claro */
 }
 
 * {
@@ -22,8 +22,8 @@ body {
     font-family: 'Manrope', sans-serif;
     color: var(--text);
     background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.18), transparent 28%),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05), transparent 28%),
         linear-gradient(160deg, var(--bg-1), var(--bg-2));
     display: grid;
     place-items: center;
@@ -39,7 +39,7 @@ body {
     border: 1px solid var(--border);
     border-radius: 28px;
     overflow: hidden;
-    background: rgba(2, 6, 23, 0.45);
+    background: #ffffff;
     box-shadow: var(--shadow);
     backdrop-filter: blur(20px);
     animation: rise 0.7s ease both;
@@ -49,8 +49,8 @@ body {
     padding: 52px;
     position: relative;
     background:
-    linear-gradient(145deg, rgba(59, 130, 246, 0.16), rgba(239, 68, 68, 0.08)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+        linear-gradient(145deg, rgba(37, 99, 235, 0.04), rgba(124, 58, 237, 0.02)),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0));
 }
 
 .brand {
@@ -68,8 +68,8 @@ body {
     width: 42px;
     height: 42px;
     border-radius: 14px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
+    background: linear-gradient(135deg, var(--accent-2), var(--accent));
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
 }
 
 .hero h1 {
@@ -99,8 +99,8 @@ body {
 .stat {
     padding: 16px;
     border-radius: 20px;
-    background: rgba(4, 10, 23, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #f8fafc;
+    border: 1px solid var(--border);
 }
 
 .stat strong {
@@ -138,9 +138,9 @@ body {
     border-radius: 16px;
     padding: 14px 16px;
     margin-bottom: 18px;
-    border: 1px solid rgba(255, 107, 107, 0.25);
-    background: rgba(255, 107, 107, 0.1);
-    color: #ffd7d7;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: rgba(239, 68, 68, 0.05);
+    color: #b91c1c;
 }
 
 .field {
@@ -151,17 +151,17 @@ label {
     display: block;
     margin-bottom: 8px;
     font-size: 0.92rem;
-    color: #d5def0;
+    color: #334155;
     font-weight: 600;
 }
 
 input[type="email"],
 input[type="password"] {
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 16px;
     padding: 15px 16px;
-    background: rgba(8, 15, 29, 0.9);
+    background: #ffffff;
     color: var(--text);
     font: inherit;
     outline: none;
@@ -169,8 +169,8 @@ input[type="password"] {
 }
 
 input:focus {
-    border-color: rgba(59, 130, 246, 0.75);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+    border-color: rgba(37, 99, 235, 0.5);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     transform: translateY(-1px);
 }
 
@@ -182,7 +182,7 @@ input:focus {
 }
 
 .error {
-    color: #ffb4b4;
+    color: var(--danger);
 }
 
 .row {
@@ -208,7 +208,7 @@ input:focus {
 }
 
 .link {
-    color: var(--accent-2);
+    color: var(--accent);
     text-decoration: none;
     font-size: 0.94rem;
 }
@@ -218,17 +218,17 @@ input:focus {
     border: 0;
     border-radius: 16px;
     padding: 15px 18px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #f8fafc;
+    background: var(--accent);
+    color: #ffffff;
     font: 700 1rem 'Space Grotesk', sans-serif;
     cursor: pointer;
-    box-shadow: 0 18px 40px rgba(59, 130, 246, 0.28);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 22px 44px rgba(239, 68, 68, 0.34);
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.3);
 }
 
 .footer-note {
@@ -282,4 +282,45 @@ input:focus {
         flex-direction: column;
         align-items: flex-start;
     }
+}
+/* --- ESTILOS PARA EL LOGO EN EL HERO --- */
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px !important; /* Ajuste para centrar mejor el contenido */
+}
+
+.logo-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.hero-logo {
+    width: 100%;
+    max-width: 280px; /* Controla el tamaño máximo del logo */
+    height: auto;
+    object-fit: contain;
+    /* Le da una sombra muy sutil en tonos azules para que resalte */
+    filter: drop-shadow(0 12px 24px rgba(37, 99, 235, 0.15)); 
+    transition: transform 0.3s ease;
+}
+
+.hero-logo:hover {
+    transform: scale(1.02); /* Pequeño efecto al pasar el mouse */
+}
+
+.hero-text h1 {
+    font-size: 2rem !important;
+    margin-bottom: 10px !important;
+    color: var(--accent); /* Usa el azul de tu paleta */
+}
+
+.hero-text p {
+    margin: 0 auto !important;
+    max-width: 40ch !important;
 }

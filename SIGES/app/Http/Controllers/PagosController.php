@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PagoRequest;
 use App\Models\choferes;
 use App\Models\pagos;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // <-- Importación añadida para leer el formulario
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +44,8 @@ class PagosController extends Controller
         abort_unless($this->currentUserChoferIds()->contains($pago->id_chofer), Response::HTTP_FORBIDDEN);
     }
 
-    public function index()
+// <-- Se inyecta Request aquí
+    public function index(Request $request) 
     {
         $query = pagos::with('chofer.usuario', 'chofer.vehiculo')
             ->latest();
@@ -53,6 +54,16 @@ class PagosController extends Controller
             $choferIds = $this->currentUserChoferIds();
 
             $query->whereIn('id_chofer', $choferIds->all());
+        }
+
+        // <-- LÓGICA DE FILTRADO MODIFICADA PARA BUSCAR POR NOMBRE
+        if ($request->filled('unidad')) {
+            $unidad = $request->input('unidad');
+            
+            $query->whereHas('chofer.vehiculo', function($q) use ($unidad) {
+                // Cambiado de 'matricula' a 'nombre'
+                $q->where('nombre', 'LIKE', '%' . $unidad . '%');
+            });
         }
 
         $pagos = $query->get();
@@ -71,15 +82,11 @@ class PagosController extends Controller
         return view('pagos.create', compact('choferes'));
     }
 
-    public function store(Request $request)
+    public function store(PagoRequest $request)
     {
         $this->ensureCanManagePayments();
 
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pago' => ['required', 'date'],
-            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-        ]);
+        $data = $request->validated();
 
         pagos::create($data);
 
@@ -106,15 +113,11 @@ class PagosController extends Controller
         return view('pagos.edit', compact('pago', 'choferes'));
     }
 
-    public function update(Request $request, pagos $pago)
+    public function update(PagoRequest $request, pagos $pago)
     {
         $this->ensureCanManagePayments();
 
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_pago' => ['required', 'date'],
-            'monto_pago' => ['required', 'numeric', 'min:0', 'max:9999999.99'],
-        ]);
+        $data = $request->validated();
 
         $pago->update($data);
 

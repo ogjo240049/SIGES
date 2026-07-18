@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VehiculoRequest;
 use App\Models\choferes;
 use App\Models\vehiculos;
-use Illuminate\Http\Request;
 
 class VehiculosController extends Controller
 {
-    public function index()
+// Se añade la inyección de Request en los parámetros del método
+    public function index(\Illuminate\Http\Request $request)
     {
-        $vehiculos = vehiculos::with('chofer.usuario')
-            ->latest()
-            ->get();
+        $query = vehiculos::with('chofer.usuario')->latest();
+
+        // Lógica de filtrado por nombre o placa del vehículo
+        if ($request->filled('buscar_vehiculo')) {
+            $buscar = $request->input('buscar_vehiculo');
+            
+            $query->where(function($q) use ($buscar) {
+                $q->where('nombre', 'LIKE', '%' . $buscar . '%')
+                  ->orWhere('placa', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $vehiculos = $query->get();
 
         return view('vehiculos.index', compact('vehiculos'));
     }
@@ -26,18 +37,16 @@ class VehiculosController extends Controller
         return view('vehiculos.create', compact('choferes'));
     }
 
-    public function store(Request $request)
+    public function store(VehiculoRequest $request)
     {
-        $data = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'placa' => ['required', 'string', 'max:255', 'unique:vehiculos,placa'],
-            'marca' => ['required', 'string', 'max:255'],
-            'modelo' => ['required', 'string', 'max:255'],
-            'motor' => ['required', 'string', 'max:255'],
-            'serie' => ['required', 'string', 'max:255'],
-            'concesionario' => ['required', 'string', 'max:255'],
-            'id_chofer' => ['nullable', 'integer', 'exists:choferes,id_chofer'],
-        ]);
+        $data = $request->validated();
+        $data['nombre'] = trim((string) ($data['nombre'] ?? ''));
+        $data['placa'] = trim((string) ($data['placa'] ?? ''));
+        $data['marca'] = trim((string) ($data['marca'] ?? ''));
+        $data['modelo'] = trim((string) ($data['modelo'] ?? ''));
+        $data['motor'] = trim((string) ($data['motor'] ?? ''));
+        $data['serie'] = trim((string) ($data['serie'] ?? ''));
+        $data['concesionario'] = trim((string) ($data['concesionario'] ?? ''));
 
         $vehiculo = vehiculos::create($data);
 
@@ -69,18 +78,16 @@ class VehiculosController extends Controller
         return view('vehiculos.edit', compact('vehiculo', 'choferes'));
     }
 
-    public function update(Request $request, vehiculos $vehiculo)
+    public function update(VehiculoRequest $request, vehiculos $vehiculo)
     {
-        $data = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'placa' => ['required', 'string', 'max:255', 'unique:vehiculos,placa,' . $vehiculo->matricula . ',matricula'],
-            'marca' => ['required', 'string', 'max:255'],
-            'modelo' => ['required', 'string', 'max:255'],
-            'motor' => ['required', 'string', 'max:255'],
-            'serie' => ['required', 'string', 'max:255'],
-            'concesionario' => ['required', 'string', 'max:255'],
-            'id_chofer' => ['nullable', 'integer', 'exists:choferes,id_chofer'],
-        ]);
+        $data = $request->validated();
+        $data['nombre'] = trim((string) ($data['nombre'] ?? ''));
+        $data['placa'] = trim((string) ($data['placa'] ?? ''));
+        $data['marca'] = trim((string) ($data['marca'] ?? ''));
+        $data['modelo'] = trim((string) ($data['modelo'] ?? ''));
+        $data['motor'] = trim((string) ($data['motor'] ?? ''));
+        $data['serie'] = trim((string) ($data['serie'] ?? ''));
+        $data['concesionario'] = trim((string) ($data['concesionario'] ?? ''));
 
         $vehiculo->update($data);
 

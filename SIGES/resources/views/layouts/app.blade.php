@@ -12,12 +12,14 @@
     <div class="shell">
         <header class="topbar">
             <div class="brand">
-                <span class="brand-mark"></span>
+                <img src="{{ asset('images/mini-logo.png') }}" alt="Logo Radio Taxi" class="brand-mark-img">
+                
                 <div>
                     <span class="brand-name">SIGES</span>
                     <span class="brand-subtitle">Gestión inteligente</span>
                 </div>
             </div>
+
 
             <div class="topbar-actions">
                 @hasSection('topbar-actions')
@@ -36,7 +38,7 @@
         @endif
 
         @if(session('error'))
-            <div class="flash-message" style="border-color: rgba(239, 68, 68, 0.22); background: rgba(239, 68, 68, 0.12); color: #FFE8E8;">
+            <div class="flash-message" role="alert">
                 {{ session('error') }}
             </div>
         @endif

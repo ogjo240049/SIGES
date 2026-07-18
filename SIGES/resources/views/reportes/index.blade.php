@@ -59,7 +59,7 @@
                 <div class="field-grid">
                     <div class="field-card" style="grid-column: 1 / -1;">
                         <label class="field-label">Chofer</label>
-                        <select name="id_chofer">
+                        <select name="id_chofer" required>
                             <option value="">Selecciona un chofer</option>
                             @foreach($choferes as $chofer)
                                 <option value="{{ $chofer->id_chofer }}" {{ (string) request('id_chofer') === (string) $chofer->id_chofer ? 'selected' : '' }}>
@@ -75,7 +75,7 @@
                 <div class="field-grid">
                     <div class="field-card" style="grid-column: 1 / -1;">
                         <label class="field-label">Unidad</label>
-                        <select name="matricula">
+                        <select name="matricula" required>
                             <option value="">Selecciona una unidad</option>
                             @foreach($vehiculos as $vehiculo)
                                 <option value="{{ $vehiculo->matricula }}" {{ (string) request('matricula') === (string) $vehiculo->matricula ? 'selected' : '' }}>
@@ -91,11 +91,11 @@
                 <div class="field-grid">
                     <div class="field-card">
                         <label class="field-label">Fecha inicial</label>
-                        <input type="date" name="fecha_inicio" value="{{ request('fecha_inicio') }}">
+                        <input type="date" name="fecha_inicio" value="{{ request('fecha_inicio') }}" required>
                     </div>
                     <div class="field-card">
                         <label class="field-label">Fecha final</label>
-                        <input type="date" name="fecha_fin" value="{{ request('fecha_fin') }}">
+                        <input type="date" name="fecha_fin" value="{{ request('fecha_fin') }}" required>
                     </div>
                 </div>
             </div>
@@ -166,10 +166,10 @@
             <div class="panel-header">
                 <div class="panel-icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 13L4 8C4.279 6.605 5.47 5.588 6.888 5.588H17.112C18.53 5.588 19.721 6.605 20 8L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M5 16H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="7" cy="17" r="2" stroke="currentColor" stroke-width="2"/>
-                        <circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M5 11L6.8 6.5C7.14 5.65 7.96 5 8.9 5H15.1C16.04 5 16.86 5.65 17.2 6.5L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="3" y="11" width="18" height="6" rx="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="7" cy="17" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <div>

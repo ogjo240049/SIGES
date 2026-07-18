@@ -26,6 +26,26 @@
     </section>
 
     <section class="table-card">
+        @if(auth()->user()?->isAdmin() || auth()->user()?->isOperator())
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('pagos.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="unidad" 
+                    placeholder="Filtrar por nombre de unidad..." 
+                    value="{{ request('unidad') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('unidad'))
+                    <a href="{{ route('pagos.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+        @endif
+
         @if($pagos->isEmpty())
             <div class="empty-state">
                 <h2>No hay registros de pagos aún</h2>
@@ -51,7 +71,7 @@
                             <td>{{ $pago->fecha_pago->format('d/m/Y') }}</td>
                             <td>{{ $pago->created_at?->format('H:i') ?? '--:--' }}</td>
                             <td>{{ $pago->chofer->usuario?->name ?? 'Chofer no disponible' }}</td>
-                            <td>{{ $pago->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
+                            <td>{{ $pago->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
                             <td><span class="payment-tag">${{ number_format($pago->monto_pago, 2, ',', '.') }}</span></td>
                             @unless(auth()->user()?->isDriver())
                                 <td>
@@ -61,7 +81,7 @@
                                         <form action="{{ route('pagos.destroy', $pago) }}" method="POST" onsubmit="return confirm('¿Eliminar este pago?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="button-ghost">Eliminar</button>
+                                            <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BitacoraRequest;
 use App\Models\choferes;
 use App\Models\bitacora;
-use Illuminate\Http\Request;
 
 class BitacoraController extends Controller
 {
@@ -26,13 +26,9 @@ class BitacoraController extends Controller
         return view('bitacoras.create', compact('choferes'));
     }
 
-    public function store(Request $request)
+    public function store(BitacoraRequest $request)
     {
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_hora' => ['required', 'date'],
-            'locacion' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         bitacora::create($data);
 
@@ -56,13 +52,9 @@ class BitacoraController extends Controller
         return view('bitacoras.edit', compact('bitacora', 'choferes'));
     }
 
-    public function update(Request $request, bitacora $bitacora)
+    public function update(BitacoraRequest $request, bitacora $bitacora)
     {
-        $data = $request->validate([
-            'id_chofer' => ['required', 'integer', 'exists:choferes,id_chofer'],
-            'fecha_hora' => ['required', 'date'],
-            'locacion' => ['required', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
 
         $bitacora->update($data);
 

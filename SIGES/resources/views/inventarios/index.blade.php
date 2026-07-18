@@ -22,9 +22,27 @@
     </section>
 
     <section class="table-card">
+        <div class="filter-container" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eaeaea;">
+            <form action="{{ route('inventarios.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="buscar_pieza" 
+                    placeholder="Buscar pieza por nombre..." 
+                    value="{{ request('buscar_pieza') }}" 
+                    class="form-input"
+                    style="flex: 1; max-width: 300px;"
+                >
+                <button type="submit" class="button-secondary">Buscar</button>
+                
+                @if(request('buscar_pieza'))
+                    <a href="{{ route('inventarios.index') }}" class="button-ghost">Limpiar filtro</a>
+                @endif
+            </form>
+        </div>
+
         @if($inventarios->isEmpty())
             <div class="empty-state">
-                <h2>No hay piezas registradas aún</h2>
+                <h2>No hay piezas registradas aún o no coinciden con la búsqueda</h2>
                 <p>Agrega la primera pieza para comenzar a llevar el control de existencias.</p>
             </div>
         @else
@@ -42,15 +60,39 @@
                         <tr>
                             <td>{{ $item->nombre_pieza }}</td>
                             <td>{{ $item->tipo_pieza }}</td>
-                            <td>{{ $item->cantidad }}</td>
                             <td>
-                                <div class="actions">
+                                <span class="payment-tag" style="background-color: {{ $item->cantidad > 0 ? 'rgba(59, 130, 246, 0.1)' : 'rgba(239, 68, 68, 0.1)' }}; color: {{ $item->cantidad > 0 ? '#1d4ed8' : '#dc2626' }};">
+                                    {{ $item->cantidad }} uds
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions" style="display: flex; gap: 8px; align-items: center;">
+                                    {{-- BOTÓN PARA DESCONTAR UNA PIEZA RÁPIDAMENTE --}}
+                                    @if($item->cantidad > 0)
+                                        <form action="{{ route('inventarios.update', $item) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="nombre_pieza" value="{{ $item->nombre_pieza }}">
+                                            <input type="hidden" name="tipo_pieza" value="{{ $item->tipo_pieza }}">
+                                            <input type="hidden" name="cantidad" value="{{ $item->cantidad - 1 }}">
+                                            <button type="submit" class="button-primary" style="padding: 6px 12px; font-size: 0.85rem; background-color: #10b981;">
+                                                Usar 1
+                                            </button>
+                                        </form>
+                                    @else
+                                        <button class="button-ghost" style="padding: 6px 12px; font-size: 0.85rem; opacity: 0.5; cursor: not-allowed;" disabled>
+                                            Agotado
+                                        </button>
+                                    @endif
+
                                     <a href="{{ route('inventarios.show', $item) }}" class="button-ghost">Ver</a>
                                     <a href="{{ route('inventarios.edit', $item) }}" class="button-secondary">Editar</a>
-                                    <form action="{{ route('inventarios.destroy', $item) }}" method="POST" onsubmit="return confirm('¿Eliminar este registro?');">
+                                    
+                                    {{-- ELIMINAR QUEDA EXCLUSIVO PARA BORRAR LA FILA POR COMPLETO SI FUE UN ERROR DE REGISTRO --}}
+                                    <form action="{{ route('inventarios.destroy', $item) }}" method="POST" onsubmit="return confirm('¿Eliminar esta pieza por completo del catálogo?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button-ghost">Eliminar</button>
+                                        <button type="submit" class="button-ghost" style="border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">Eliminar</button>
                                     </form>
                                 </div>
                             </td>
