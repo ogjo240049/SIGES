@@ -58,7 +58,13 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="button-primary">Guardar cambios</button>
+                <button type="submit" class="button-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 13V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 9L12 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 12V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Guardar cambios</button>
             </div>
         </form>
     </section>

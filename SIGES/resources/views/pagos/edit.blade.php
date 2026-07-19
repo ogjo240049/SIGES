@@ -24,9 +24,8 @@
         <div class="panel-header">
             <div class="panel-icon">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 7H16C17.1046 7 18 7.89543 18 9C18 10.1046 17.1046 11 16 11H12C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M12 5V19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M12 5C9.79086 5 8 6.79086 8 9C8 11.2091 9.79086 13 12 13C14.2091 13 16 14.7909 16 17C16 19.2091 14.2091 21 12 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 6V12L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 4H16C18.2091 4 20 5.79086 20 8V16C20 18.2091 18.2091 20 16 20H8C5.79086 20 4 18.2091 4 16V8C4 5.79086 5.79086 4 8 4Z" stroke="currentColor" stroke-width="2"/>
                 </svg>
             </div>
             <div>
@@ -100,7 +99,7 @@
 
             <div class="form-actions">
                 <button type="submit" class="button-primary">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 13V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         <path d="M9 9L12 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M12 12V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
