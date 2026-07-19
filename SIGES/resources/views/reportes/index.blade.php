@@ -50,7 +50,6 @@
                         <option value="unidad" @selected(request('reporte') === 'unidad')>Reporte de pagos por unidad de taxi</option>
                         <option value="fechas" @selected(request('reporte') === 'fechas')>Reporte de pagos por rango de fechas</option>
                         <option value="semanal" @selected(request('reporte') === 'semanal')>Reporte semanal del total de ingresos registrados</option>
-                        <option value="inventario_compras" @selected(request('reporte') === 'inventario_compras')>Reporte de inventario y compras</option>
                     </select>
                 </div>
             </div>
@@ -309,77 +308,6 @@
         </section>
     @endif
 
-    @if($reporteInventarioCompras)
-        <section class="panel" style="margin-top: 24px;">
-            <div class="panel-header">
-                <div class="panel-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M7 21V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M17 21V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div>
-                    <h2>Reporte de inventario y compras</h2>
-                    <p>Consulta existencias actuales y el historial de compras de refacciones.</p>
-                </div>
-            </div>
-
-            <div class="panel-separator"></div>
-            <div class="field-grid">
-                <div class="field-card"><span class="field-label">Piezas registradas</span><p>{{ $reporteInventarioCompras['total_piezas'] }}</p></div>
-                <div class="field-card"><span class="field-label">Existencias totales</span><p>{{ $reporteInventarioCompras['existencias_totales'] }}</p></div>
-                <div class="field-card"><span class="field-label">Compras registradas</span><p>{{ $reporteInventarioCompras['total_compras'] }}</p></div>
-                <div class="field-card"><span class="field-label">Costo total compras</span><p>${{ number_format((float) $reporteInventarioCompras['costo_total_compras'], 2, ',', '.') }}</p></div>
-            </div>
-
-            <div class="panel-separator"></div>
-            <h3 style="margin: 0 0 12px 0;">Existencias actuales</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Pieza</th>
-                        <th>Tipo</th>
-                        <th>Cantidad disponible</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($reporteInventarioCompras['inventarios'] as $item)
-                        <tr>
-                            <td>{{ $item->nombre_pieza }}</td>
-                            <td>{{ $item->tipo_pieza }}</td>
-                            <td>{{ $item->cantidad }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            <div class="panel-separator"></div>
-            <h3 style="margin: 0 0 12px 0;">Historial de compras</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Pieza</th>
-                        <th>Cantidad</th>
-                        <th>Costo unitario</th>
-                        <th>Costo total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($reporteInventarioCompras['compras'] as $compra)
-                        <tr>
-                            <td>{{ $compra->fecha->format('d/m/Y') }}</td>
-                            <td>{{ $compra->inventario?->nombre_pieza ?? 'Pieza eliminada' }}</td>
-                            <td>{{ $compra->cantidad_compra }}</td>
-                            <td>${{ number_format((float) $compra->precio_unitario, 2, ',', '.') }}</td>
-                            <td>${{ number_format((float) $compra->precio_unitario * (int) $compra->cantidad_compra, 2, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </section>
-    @endif
 
     <style>
         .report-fields {
