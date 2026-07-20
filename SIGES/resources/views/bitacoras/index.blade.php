@@ -43,7 +43,15 @@
                         <tr>
                             <td>{{ $bitacora->fecha_hora->format('d/m/Y H:i') }}</td>
                             <td>{{ $bitacora->chofer->usuario?->name ?? 'N/D' }}</td>
-                            <td>{{ $bitacora->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</td>
+                            {{-- CAMBIO REALIZADO: Muestra Nombre/Modelo junto a la matrícula --}}
+                            <td>
+                                @if($bitacora->chofer->vehiculo)
+                                    {{ $bitacora->chofer->vehiculo->nombre }} 
+                                    <span style="font-size: 0.85em; color: #6b7280;">({{ $bitacora->chofer->vehiculo->matricula }})</span>
+                                @else
+                                    Sin vehículo
+                                @endif
+                            </td>
                             <td>{{ $bitacora->locacion }}</td>
                             <td>
                                 <div class="actions">

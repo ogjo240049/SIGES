@@ -44,9 +44,15 @@
                         <tr>
                             <td>{{ $servicio->fecha_pedido->format('d/m/Y') }}</td>
                             <td>{{ $servicio->chofer->usuario?->name ?? 'N/D' }}</td>
-                            <!-- CAMBIO: Ahora renderiza el nombre comercial del vehículo -->
-                            <td>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</td>
-                            
+                            {{-- Muestra Nombre/Modelo y matrícula en un formato secundario discreto --}}
+                            <td>
+                                @if($servicio->chofer->vehiculo)
+                                    {{ $servicio->chofer->vehiculo->nombre }} 
+                                    <span style="font-size: 0.85em; color: #6b7280;">({{ $servicio->chofer->vehiculo->matricula }})</span>
+                                @else
+                                    Sin vehículo
+                                @endif
+                            </td>
                             <td>{{ $servicio->origen_viaje }}</td>
                             <td>{{ $servicio->destino_viaje }}</td>
                             <td>

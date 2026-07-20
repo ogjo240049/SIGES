@@ -44,8 +44,14 @@
             </div>
             <div class="field-card">
                 <span class="field-label">Vehículo</span>
-                <!-- CAMBIO: Ahora despliega el nombre comercial del vehículo -->
-                <p>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</p>
+                <p>
+                    @if($servicio->chofer->vehiculo)
+                        {{ $servicio->chofer->vehiculo->nombre }} 
+                        <span style="display: block; font-size: 0.9em; color: #6b7280;">Placas: {{ $servicio->chofer->vehiculo->matricula }}</span>
+                    @else
+                        Sin vehículo
+                    @endif
+                </p>
             </div>
             <div class="field-card">
                 <span class="field-label">Origen</span>

@@ -43,8 +43,16 @@
                 <p>{{ $bitacora->chofer->usuario?->name ?? 'N/D' }}</p>
             </div>
             <div class="field-card">
-                <span class="field-label">Vehículo</span>
-                <p>{{ $bitacora->chofer->vehiculo?->matricula ?? 'Sin vehículo' }}</p>
+                <span class="field-label">Vehículo asignado</span>
+                {{-- CAMBIO REALIZADO: Muestra Nombre y Matrícula separados limpiamente --}}
+                <p>
+                    @if($bitacora->chofer->vehiculo)
+                        {{ $bitacora->chofer->vehiculo->nombre }} 
+                        <span style="display: block; font-size: 0.9em; color: #6b7280;">Placas: {{ $bitacora->chofer->vehiculo->matricula }}</span>
+                    @else
+                        Sin vehículo
+                    @endif
+                </p>
             </div>
             <div class="field-card">
                 <span class="field-label">Fecha y hora</span>
@@ -56,5 +64,4 @@
             </div>
         </div>
     </section>
-
 @endsection

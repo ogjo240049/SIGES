@@ -49,8 +49,9 @@
                         @foreach($choferes as $chofer)
                             <option value="{{ $chofer->id_chofer }}" {{ old('id_chofer', $bitacora->id_chofer) == $chofer->id_chofer ? 'selected' : '' }}>
                                 {{ $chofer->usuario?->name ?? 'Chofer' }}
+                                {{-- CAMBIO REALIZADO: Nombre y Matrícula dentro del select --}}
                                 @if($chofer->vehiculo)
-                                    - {{ $chofer->vehiculo->matricula }}
+                                    - {{ $chofer->vehiculo->nombre }} ({{ $chofer->vehiculo->matricula }})
                                 @endif
                             </option>
                         @endforeach
@@ -76,7 +77,8 @@
                         <path d="M9 9L12 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M12 12V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
-                    Guardar cambios</button>
+                    Guardar cambios
+                </button>
             </div>
         </form>
     </section>
