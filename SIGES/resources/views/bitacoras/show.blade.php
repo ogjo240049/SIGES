@@ -25,10 +25,8 @@
         <div class="panel-header">
             <div class="panel-icon">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 3V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M17 3V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M4 8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <rect x="4" y="6" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
             <div>
