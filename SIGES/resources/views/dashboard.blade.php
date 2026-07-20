@@ -75,8 +75,8 @@
         @endif
 
         <article class="grid-card">
-            <h2>Gestión de pagos</h2>
-            <p>Manten actualizados los pagos realizados por los choferes y accede rapidamente al módulo con un solo clic.</p>
+            <h2>Cuentas de Taxi</h2>
+            <p>Manten actualizados los pagos realizados por los choferes.</p>
             <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                 <a href="{{ route('pagos.index') }}" 
                     style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
