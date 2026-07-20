@@ -35,7 +35,7 @@
 
         @if($user?->canManageOperations())
             <article class="grid-card">
-                <h2>Gestión de choferes</h2>
+                <h2>Alta de choferes</h2>
                 <p>Da de alta choferes, enlaza su usuario y asigna una unidad disponible cuando corresponda.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('choferes.index') }}" 
@@ -48,7 +48,7 @@
             </article>
 
             <article class="grid-card">
-                <h2>Bitácora de choferes</h2>
+                <h2>Pase de lista</h2>
                 <p>Registra ubicaciones y horarios para llevar un control puntual de la actividad de cada chofer.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('bitacoras.index') }}" 
@@ -61,7 +61,7 @@
             </article>
 
             <article class="grid-card">
-                <h2>Gestión de servicios</h2>
+                <h2>Servicios de Taxi</h2>
                 <p>Registra viajes particulares indicando origen, destino, chofer y vehículo.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('servicios.index') }}" 
@@ -75,7 +75,7 @@
         @endif
 
         <article class="grid-card">
-            <h2>Gestión de pagos</h2>
+            <h2>Pago de cuentas</h2>
             <p>Manten actualizados los pagos realizados por los choferes y accede rapidamente al módulo con un solo clic.</p>
             <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                 <a href="{{ route('pagos.index') }}" 
@@ -89,7 +89,7 @@
 
         @if($user?->isAdmin())
             <article class="grid-card">
-                <h2>Gestión de usuarios</h2>
+                <h2>Alta de usuarios</h2>
                 <p>Administra cuentas, roles y credenciales de acceso del sistema desde un solo lugar.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('usuarios.index') }}" 
@@ -102,7 +102,7 @@
             </article>
 
             <article class="grid-card">
-                <h2>Gestión de taxis</h2>
+                <h2>Alta de Carro</h2>
                 <p>Registra, edita y administra las unidades de taxi, con placa, modelo, motor, serie, concesionario y chofer asignado.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('vehiculos.index') }}" 
@@ -115,7 +115,7 @@
             </article>
 
             <article class="grid-card">
-                <h2>Gestión de inventario</h2>
+                <h2>Inventario de piezas</h2>
                 <p>Controla las existencias de piezas: nombre, tipo y cantidad disponible.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('inventarios.index') }}" 
@@ -128,7 +128,7 @@
             </article>
 
             <article class="grid-card">
-                <h2>Gestión de compras</h2>
+                <h2>Compras de piezas</h2>
                 <p>Registra las adquisiciones de piezas y mantén actualizado el inventario automáticamente.</p>
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
                     <a href="{{ route('compras.index') }}" 

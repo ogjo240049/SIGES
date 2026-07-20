@@ -18,7 +18,7 @@
     <section class="page-header">
         <div class="page-heading">
             <p class="eyebrow">Pagos</p>
-            <h1>{{ auth()->user()?->isDriver() ? 'Historial de pagos' : 'Gestión de pagos' }}</h1>
+            <h1>{{ auth()->user()?->isDriver() ? 'Historial de pagos' : 'Cuentas de taxi' }}</h1>
             <p class="hero-copy">
                 {{ auth()->user()?->isDriver() ? 'Consulta tus pagos registrados con fecha, hora y monto entregado.' : 'Registra, revisa y administra los pagos realizados por los choferes de forma clara y segura.' }}
             </p>

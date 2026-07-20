@@ -25,8 +25,8 @@
         <div class="panel-header">
             <div class="panel-icon">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 7H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M7 21V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
             <div>
@@ -44,8 +44,14 @@
             </div>
             <div class="field-card">
                 <span class="field-label">Vehículo</span>
-                <!-- CAMBIO: Ahora despliega el nombre comercial del vehículo -->
-                <p>{{ $servicio->chofer->vehiculo?->nombre ?? 'Sin vehículo' }}</p>
+                <p>
+                    @if($servicio->chofer->vehiculo)
+                        {{ $servicio->chofer->vehiculo->nombre }} 
+                        <span style="display: block; font-size: 0.9em; color: #6b7280;">Placas: {{ $servicio->chofer->vehiculo->matricula }}</span>
+                    @else
+                        Sin vehículo
+                    @endif
+                </p>
             </div>
             <div class="field-card">
                 <span class="field-label">Origen</span>
