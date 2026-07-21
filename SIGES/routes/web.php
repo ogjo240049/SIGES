@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('pagos', PagosController::class)->parameters(['pagos' => 'pago']);
     });
 
-    Route::middleware('role.access:1,2,3')->group(function () {
+    Route::middleware('role.access:1,2')->group(function () {
         Route::resource('bitacoras', BitacoraController::class)->parameters(['bitacoras' => 'bitacora']);
         Route::resource('choferes', ChoferesController::class)->parameters(['choferes' => 'chofer']);
         Route::resource('servicios', ServiciosController::class)->parameters(['servicios' => 'servicio']);
