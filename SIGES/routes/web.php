@@ -37,11 +37,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('bitacoras', BitacoraController::class)->parameters(['bitacoras' => 'bitacora']);
         Route::resource('choferes', ChoferesController::class)->parameters(['choferes' => 'chofer']);
         Route::resource('servicios', ServiciosController::class)->parameters(['servicios' => 'servicio']);
+        Route::resource('inventarios', InventariosController::class)->parameters(['inventarios' => 'inventario']);
     });
 
     Route::middleware('role.access:1')->group(function () {
         Route::resource('vehiculos', VehiculosController::class)->parameters(['vehiculos' => 'vehiculo']);
-        Route::resource('inventarios', InventariosController::class)->parameters(['inventarios' => 'inventario']);
         Route::resource('compras', ComprasController::class)->parameters(['compras' => 'compra']);
         Route::resource('usuarios', UsuariosController::class)->parameters(['usuarios' => 'user']);
         Route::get('reportes', [ReportesController::class, 'index'])->name('reportes.index');

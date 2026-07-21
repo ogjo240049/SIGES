@@ -72,6 +72,19 @@
                     </a>
                 </div>
             </article>
+
+            <article class="grid-card">
+                <h2>Inventario de piezas</h2>
+                <p>Controla las existencias de piezas: nombre, tipo y cantidad disponible.</p>
+                <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+                    <a href="{{ route('inventarios.index') }}" 
+                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
+                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
+                       onmouseout="this.style.backgroundColor='#2563EB'">
+                        Abrir inventario
+                    </a>
+                </div>
+            </article>
         @endif
 
         <article class="grid-card">
@@ -110,19 +123,6 @@
                        onmouseover="this.style.backgroundColor='#1d4ed8'" 
                        onmouseout="this.style.backgroundColor='#2563EB'">
                         Abrir gestión de taxis
-                    </a>
-                </div>
-            </article>
-
-            <article class="grid-card">
-                <h2>Inventario de piezas</h2>
-                <p>Controla las existencias de piezas: nombre, tipo y cantidad disponible.</p>
-                <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
-                    <a href="{{ route('inventarios.index') }}" 
-                       style="background-color: #2563EB; color: #FFFFFF; border-radius: 2.5rem; font-weight: 600; text-decoration: none; padding: 12px 32px; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; border: none;"
-                       onmouseover="this.style.backgroundColor='#1d4ed8'" 
-                       onmouseout="this.style.backgroundColor='#2563EB'">
-                        Abrir inventario
                     </a>
                 </div>
             </article>
