@@ -86,16 +86,21 @@
                 </div>
             </div>
 
+            {{-- SECCIÓN MODIFICADA: Fechas con mensaje de advertencia --}}
             <div id="report-fields-fechas" class="report-fields" data-report-fields="fechas">
                 <div class="field-grid">
                     <div class="field-card">
                         <label class="field-label">Fecha inicial</label>
-                        <input type="date" name="fecha_inicio" value="{{ request('fecha_inicio') }}" required>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ request('fecha_inicio') }}" required>
                     </div>
                     <div class="field-card">
                         <label class="field-label">Fecha final</label>
-                        <input type="date" name="fecha_fin" value="{{ request('fecha_fin') }}" required>
+                        <input type="date" name="fecha_fin" id="fecha_fin" value="{{ request('fecha_fin') }}" required>
                     </div>
+                </div>
+                {{-- Alerta visual para fechas cruzadas --}}
+                <div id="fechas-warning" class="field-error-warning" style="display: none;">
+                    ⚠️ La fecha final no puede ser anterior a la fecha inicial.
                 </div>
             </div>
 
@@ -308,7 +313,6 @@
         </section>
     @endif
 
-
     <style>
         .report-fields {
             display: none;
@@ -325,6 +329,19 @@
             flex-wrap: wrap;
             align-items: center;
         }
+
+        .field-error-warning {
+            margin-top: 12px;
+            padding: 10px 14px;
+            font-size: 0.875rem;
+            color: #b91c1c;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
     </style>
 
     <script>
@@ -332,6 +349,37 @@
             const select = document.getElementById('reporte-select');
             const sections = Array.from(document.querySelectorAll('.report-fields'));
             const submit = document.getElementById('report-submit');
+            
+            const inputInicio = document.getElementById('fecha_inicio');
+            const inputFin = document.getElementById('fecha_fin');
+            const warningFechas = document.getElementById('fechas-warning');
+
+            // Función para validar fechas cruzadas en tiempo real
+            function validateDateRange() {
+                if (select.value !== 'fechas') {
+                    if (warningFechas) warningFechas.style.display = 'none';
+                    return true;
+                }
+
+                if (inputInicio.value) {
+                    inputFin.min = inputInicio.value; // Establece el mínimo permitido en la fecha final
+                }
+
+                if (inputFin.value) {
+                    inputInicio.max = inputFin.value; // Establece el máximo permitido en la fecha inicial
+                }
+
+                // Verificar si hay cruce
+                if (inputInicio.value && inputFin.value && inputFin.value < inputInicio.value) {
+                    if (warningFechas) warningFechas.style.display = 'flex';
+                    submit.disabled = true;
+                    return false;
+                } else {
+                    if (warningFechas) warningFechas.style.display = 'none';
+                    submit.disabled = false;
+                    return true;
+                }
+            }
 
             function syncState() {
                 const selected = select.value;
@@ -358,6 +406,10 @@
                 });
 
                 submit.disabled = !selected;
+                
+                if (selected === 'fechas') {
+                    validateDateRange();
+                }
             }
 
             sections.forEach((section) => {
@@ -367,6 +419,12 @@
                     }
                 });
             });
+
+            // Escuchadores para validar fechas
+            if (inputInicio && inputFin) {
+                inputInicio.addEventListener('change', validateDateRange);
+                inputFin.addEventListener('change', validateDateRange);
+            }
 
             select.addEventListener('change', syncState);
             syncState();
