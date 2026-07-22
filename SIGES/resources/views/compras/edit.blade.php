@@ -72,7 +72,7 @@
 
                 <div class="field-card">
                     <label class="field-label">Fecha</label>
-                    <input type="date" name="fecha" value="{{ old('fecha', $compra->fecha->format('Y-m-d')) }}" required>
+                    <input type="date" name="fecha" value="{{ old('fecha', $compra->fecha->format('Y-m-d')) }}" max="{{ date('Y-m-d') }}" required>
                     @error('fecha')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
 

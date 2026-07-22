@@ -60,7 +60,7 @@
                 </div>
                 <div class="field-card">
                     <label class="field-label">Fecha y hora</label>
-                    <input type="datetime-local" name="fecha_hora" value="{{ old('fecha_hora') }}" required>
+                    <input type="datetime-local" name="fecha_hora" value="{{ old('fecha_hora') }}" max="{{ date('Y-m-d\TH:i') }}"  required>
                     @error('fecha_hora')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="field-card" style="grid-column: 1 / -1;">

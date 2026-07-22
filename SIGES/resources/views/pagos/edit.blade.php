@@ -72,7 +72,7 @@
                         </svg>
                         Fecha de pago
                     </label>
-                    <input type="date" name="fecha_pago" value="{{ old('fecha_pago', $pago->fecha_pago->format('Y-m-d')) }}" required>
+                    <input type="date" name="fecha_pago" value="{{ old('fecha_pago', $pago->fecha_pago->format('Y-m-d')) }}" max="{{ date('Y-m-d') }}" required>
                     @error('fecha_pago')
                         <div class="field-error">{{ $message }}</div>
                     @enderror
