@@ -60,7 +60,7 @@
                 </div>
                 <div class="field-card">
                     <label class="field-label">Fecha y hora</label>
-                    <input type="datetime-local" name="fecha_hora" value="{{ old('fecha_hora') }}" max="{{ date('Y-m-d\TH:i') }}"  required>
+                    <input type="text" id="datetime-picker" name="fecha_hora" value="{{ old('fecha_hora') }}"  required>
                     @error('fecha_hora')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="field-card" style="grid-column: 1 / -1;">
@@ -83,3 +83,15 @@
         </form>
     </section>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("#datetime-picker", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: true,
+        maxDate: "today", // O la fecha exacta si deseas limitar
+        locale: "es", // En español
+    });
+});
+</script>
